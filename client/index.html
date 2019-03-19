@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="index.css">
 
+    <script src='index.js'></script>
+
     <title>Title</title>
     <!--TODO: Change title-->
 
@@ -14,9 +16,30 @@
 
 <body>
 
-    <div class="sidebar">
-        this is a sidebar
+    <div class="titlebar">
+        TITLE UNDER CONSTRUCTION &#9776;
     </div>
+
+    <div class="sidebar">
+
+        <div class="tab">
+            <button class="tabButton active" onclick="openTab(event,'Search')">Search</button>
+            <button class="tabButton" onclick="openTab(event,'Add')">Add</button>
+        </div>
+
+        <div id="Search" class="tabContent" style="display: block;">
+            <input>
+            <button style="width:100%">Submit Search</button>
+        </div>
+
+
+        <div id="Add" class="tabContent" style="display: none;">
+            <input>
+            <button style=" width:100% ">Add Entry</button>
+        </div>
+
+    </div>
+
     <div class="main">
         this is body
         <div class="container-fluid">

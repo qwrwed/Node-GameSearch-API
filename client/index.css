@@ -1,3 +1,15 @@
+/*titlebar, sidebar and main content styling*/
+.titlebar {
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    position: fixed;
+    z-index: 2; /* Stay on top */
+    background-color: #666;
+    text-align: center
+
+}
+
 .sidebar {
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 160px; /* Set the width of the sidebar */
@@ -5,12 +17,49 @@
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #BBB;
+    background-color: #ccc;
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
+    padding-top: 50px;
 }
 
 .main {
     margin-left: 160px; /* Same as the width of the sidebar */
-    padding: 0px 10px;
+    padding: 50px 10px;
+}
+
+/*tab styling*/
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+
+    /*
+    padding: 14px 16px;
+    */
+    width: 50%;
+}
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
 }
