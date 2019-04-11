@@ -57,9 +57,20 @@
     background-color: #ccc;
 }
 
-.tabcontent {
+.tabContent {
     display: none;
+    /*
     padding: 6px 12px;
+    width: 95%;
+    */
+
+    margin-left: auto;
+    margin-right: auto;
     border: 1px solid #ccc;
     border-top: none;
+    width: 99%;
+}
+
+.tabContent * {
+    width: 100%;
 }

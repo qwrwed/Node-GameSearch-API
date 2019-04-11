@@ -16,6 +16,7 @@
 
 <body>
 
+
     <div class="titlebar">
         TITLE UNDER CONSTRUCTION &#9776;
     </div>
@@ -23,46 +24,33 @@
     <div class="sidebar">
 
         <div class="tab">
-            <button class="tabButton active" onclick="openTab(event,'Search')">Search</button>
-            <button class="tabButton" onclick="openTab(event,'Add')">Add</button>
+            <button class="tabButton active" onclick="openTab(event,'searchTab')">Search</button>
+            <button class="tabButton" onclick="openTab(event,'addTab')">Add</button>
         </div>
 
-        <div id="Search" class="tabContent" style="display: block;">
-            <input>
-            <button style="width:100%">Submit Search</button>
+        <div class="tabContent" id="searchTab" style="display: block;">
+            <form id="searchForm">
+                <input  id="searchInput">
+                <input id="searchButton" type="submit" value="Submit Search">
+            </form>
         </div>
 
 
-        <div id="Add" class="tabContent" style="display: none;">
-            <input>
-            <button style=" width:100% ">Add Entry</button>
+        <div class="tabContent" id="addTab" style="display: none;">
+            <form id="addForm">
+                <label for="title">Title </label><input id="title" name="title"/><br>
+                <label for="href">Link </label><input id="href" name="href"/><br>
+                <label for="ingredients">Ingredients </label><input id="ingredients" name="ingredients"/><br>
+                <label for="thumbnail">Thumbnail </label><input id="thumbnail" name="thumbnail"/><br>
+
+                <input id="addButton" type="submit" value="Add Entry">
+            </form>
         </div>
 
     </div>
 
-    <div class="main">
-        this is body
-        <div class="container-fluid">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="container-fluid">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="container-fluid">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="container-fluid">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="container-fluid">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="container-fluid">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="container-fluid">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
+    <div class="main" id="content">
+
     </div>
 </body>
 
