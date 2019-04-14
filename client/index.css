@@ -1,30 +1,65 @@
-/*titlebar, sidebar and main content styling*/
-.titlebar {
-    height: 50px;
-    line-height: 50px;
+
+.wrapper {
+    background-color: #DDDDDD;
     width: 100%;
-    position: fixed;
-    z-index: 2; /* Stay on top */
-    background-color: #666;
-    text-align: center
+    height: 100%;
+    position:fixed;
+    display: grid;
+    grid-template-rows: 50px auto;
+    grid-template-columns: 160px auto;
+}
+
+.titlebar {
+    background-color: #00007F;
+    grid-area: 1 / 1 / 2 / 4; /* row-start, column start, row-end, column-end */
+
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto auto auto;
+    padding-right: 10px;
 
 }
 
+.titlebar .textContainer {
+    color: #FFFFFF;
+    display:flex;
+    grid-row: 2 / 3;
+    grid-column: 1 / 4;
+    align-self: center;
+    justify-self: center;
+    font-size: 30px;
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+
+.titlebar .searchContainer {
+    display:flex;
+    border:1px solid #000;
+    border-radius: 4px;
+    background-color: #FFF;
+    grid-row: 2 / 3;
+    grid-column: 1 / 4;
+    align-self: center;
+    justify-self: end;
+}
+.titlebar .searchContainer button, .titlebar .searchContainer input {
+    background-color: transparent;
+    border: 0;
+}
 .sidebar {
+    background-color: #CCCCCC;
+    grid-area: 2 / 1 / 4 / 2;
+}
+
+.sidebar_dep {
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 160px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
+    z-index: 0; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
     background-color: #ccc;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 50px;
-}
-
-.main {
-    margin-left: 160px; /* Same as the width of the sidebar */
-    padding: 50px 10px;
 }
 
 /*tab styling*/

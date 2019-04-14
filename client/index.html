@@ -5,22 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="index.css">
 
     <script src='index.js'></script>
 
     <title>Title</title>
-    <!--TODO: Change title-->
+    <!--TODO: consider &#9776;-->
 
 </head>
 
 <body>
 
+<div class="wrapper">
 
     <div class="titlebar">
-        TITLE UNDER CONSTRUCTION &#9776;
+        <div class="textContainer">
+            GameSearch
+        </div>
+        <div class="searchContainer">
+            <form id="searchForm">
+                <input  id="searchInput" type="text" placeholder="Search..."><!-- comment out newline to remove the gap it causes
+                    --><button type="submit"><i class="fa fa-search"></i></button>
+                </input>
+
+            </form>
+        </div>
     </div>
 
+
+    <div class="sidebar">
+
+
+    </div>
+    <div id="content"></div>
+</div>
+    <!--
     <div class="sidebar">
 
         <div class="tab">
@@ -51,7 +71,7 @@
 
     <div class="main" id="content">
 
-    </div>
+    </div>-->
 </body>
 
 </html>
