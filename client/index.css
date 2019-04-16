@@ -5,19 +5,35 @@
     height: 100%;
     position:fixed;
     display: grid;
-    grid-template-rows: 50px auto;
-    grid-template-columns: 160px auto;
+    grid-template-rows: 60px auto;
+    grid-template-columns: auto 1fr;
 }
 
 .titlebar {
     background-color: #00007F;
     grid-area: 1 / 1 / 2 / 4; /* row-start, column start, row-end, column-end */
-
     display: grid;
     grid-template-rows: auto auto auto;
     grid-template-columns: auto auto auto;
-    padding-right: 10px;
+    padding: 0 20px 0 ;
+}
 
+.titlebar .sidebarToggle {
+    color: #FFFFFF;
+    display:flex;
+    grid-row: 2 / 3;
+    grid-column: 1 / 4;
+    align-self: center;
+    justify-self: start;
+    font-size: 30px;
+    background-color: transparent;
+    border: 0;
+    transition: 0.2s;
+    outline: none;
+}
+
+.titlebar .sidebarToggle:hover {
+    color: #777777;
 }
 
 .titlebar .textContainer {
@@ -32,22 +48,74 @@
 }
 
 .titlebar .searchContainer {
-    display:flex;
-    border:1px solid #000;
+    display: flex;
+    border: 1px solid #000;
     border-radius: 4px;
-    background-color: #FFF;
+    background-color: #FFFFFF;
     grid-row: 2 / 3;
     grid-column: 1 / 4;
     align-self: center;
-    justify-self: end;
+    justify-self: start;
+    transition: 0.5s;
 }
+
+.titlebar .searchContainer.sidebarOn {
+    transform: translate(160px);
+}
+
+.titlebar .searchContainer.sidebarOff {
+    transform: translate(50px);
+}
+
 .titlebar .searchContainer button, .titlebar .searchContainer input {
     background-color: transparent;
     border: 0;
+    outline: none;
 }
 .sidebar {
+    grid-row: 2 / 4;
+    grid-column: 1 / 2;
+    /*
+    display: grid;
+    grid-template-rows: 60px auto;*/
     background-color: #CCCCCC;
-    grid-area: 2 / 1 / 4 / 2;
+    transition: 0.5s;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar input{
+
+    width: 100%;
+}
+/*
+.sidebar > * {
+    grid-row: 1 / 4;
+}
+*/
+
+.sidebar.sidebarOn {
+    width: 160px;
+    padding: 10px;
+}
+
+.sidebar.sidebarOff {
+    width: 0;
+}
+
+.sidebarToggle.sidebarOn {
+    transform : rotate(180deg);
+}
+
+.sidebarToggle.sidebarOff {
+    transform : rotate(0deg);
+}
+
+.content {
+    grid-row: 2 / 4;
+    grid-column: 2 / 4;
+    padding: 10px;
+    overflow:auto;
 }
 
 .sidebar_dep {

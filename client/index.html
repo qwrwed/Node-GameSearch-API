@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="index.css">
 
     <script src='index.js'></script>
 
     <title>Title</title>
-    <!--TODO: consider &#9776;-->
 
 </head>
 
@@ -20,13 +19,18 @@
 <div class="wrapper">
 
     <div class="titlebar">
+        <button class="sidebarToggle sidebarOn" id="sidebarToggle" onclick="toggleSidebar()">
+            <!--&#9776;-->
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
         <div class="textContainer">
             GameSearch
         </div>
-        <div class="searchContainer">
+        <div id = "searchContainer" class="searchContainer sidebarOn">
             <form id="searchForm">
-                <input  id="searchInput" type="text" placeholder="Search..."><!-- comment out newline to remove the gap it causes
-                    --><button type="submit"><i class="fa fa-search"></i></button>
+                <input  id="searchInput" autocomplete="off" type="text" placeholder="Search...">
+                    <button type="submit"><i class="fa fa-search"></i></button>
                 </input>
 
             </form>
@@ -34,11 +38,14 @@
     </div>
 
 
-    <div class="sidebar">
-
-
+    <div class="sidebar sidebarOn" id="sidebar">
+        <div>
+            <input id="getFormButton" type="button" value="Get Form"><br>
+            <input id="test" name="test" placeholder="Test"><br>
+        </div>
     </div>
-    <div id="content"></div>
+    <div id="content" class="content">
+    </div>
 </div>
     <!--
     <div class="sidebar">
@@ -58,11 +65,10 @@
 
         <div class="tabContent" id="addTab" style="display: none;">
             <form id="addForm">
-                <label for="title">Title</label><input id="title" name="title"/><br>
+                <label for="label">Title</label><input id="label" name="label"/><br>
                 <label for="href">Link</label><input id="href" name="href"/><br>
                 <label for="ingredients">Ingredients</label><input id="ingredients" name="ingredients"/><br>
                 <label for="thumbnail">Thumbnail</label><input id="thumbnail" name="thumbnail"/><br>
-
                 <input id="addButton" type="submit" value="Add Entry">
             </form>
         </div>

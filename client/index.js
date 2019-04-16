@@ -30,6 +30,25 @@ function openTab(event, tabName) {
     event.currentTarget.className += " active";
 }
 
+function toggleSidebar() {
+    const button = document.getElementById("sidebarToggle");
+    const sidebar = document.getElementById("sidebar");
+    const search = document.getElementById("searchContainer");
+    const movingElements = [button, sidebar, search];
+    let searchValue, replaceValue;
+    if (sidebar.className === "sidebar sidebarOn") {
+        searchValue = "sidebarOn";
+        replaceValue = "sidebarOff";
+    } else {
+        searchValue = "sidebarOff";
+        replaceValue = "sidebarOn";
+    }
+
+    for (i = 0; i < movingElements.length; i++) {
+        movingElements[i].className = movingElements[i].className.replace(searchValue, replaceValue);
+    }
+}
+
 function capitalise(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -42,49 +61,30 @@ function getComponent(object, component) {
     return(result)
 }
 
-function stringifyEntry(entry) {
-
+async function stringifyEntry(entry) {
     let s = "";
-    //console.log(entry);
-    s += `<h1>${entry.name}</h1>`;
-    s += `Platforms: ${getComponent(entry.platforms, "name").join(", ")}<br>`;
-    s += `Genres: ${getComponent(entry.genres, "name").join(", ")}<br>`;
-    s += `<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/${entry.cover.image_id}.jpg"><br>`;
-    //s += `<img src='${entry.cover.url}'><br>`;
-
-    /*
-    const order = [0, 2, 1];
-    entryKeys = Object.keys(entry);
-    console.log(entryKeys.length)
-    let foo = [ ...Array(entryKeys.length).keys() ].slice(order.length);
-    order.push(...foo)
-    console.log(order)
-    //console.log(entry);
-    //console.log(entryKeys)
-
-
-    let s = "";
-    for (let i = 0; i < order.length; i++) {
-        key = entryKeys[order[i]];
-        console.log(key)
-        s += `${capitalise(key)}: `;
-        if (typeof(entry[key]) === "object") {
-            for (let j = 0; j < entry[key].length; j++) {
-
-                if (j > 0) {
-                    s += ", ";
-                }
-                s += entry[key][j].name;
-            }
-        } else {
-            s += entry[key];
+    //let fieldInfo;
+    let fieldInfo = await genericGet({
+        fetchURL: `http://127.0.0.1:8090/getFieldInfo?components=html,label`,
+        responseOkFunction: async function(response) {
+            return await response.json();
         }
-        s += `<br>`
-        //s += `Title: ${entry.title} <br>`;
-        //s += `Ingredients: ${entry.ingredients} <br>`;
-        //s += `Link: <a href ='${entry.href}'>${entry.href}</a><br>`;
-        //s += `<img src='${entry.thumbnail}'><br>`;
-    }*/
+    });
+
+    let fieldValueString;
+    let fieldValue;
+    for (let i = 0; i < fieldInfo.length; i++) {
+        fieldValue = entry[fieldInfo[i].id];
+        if (typeof(fieldValue) !== "undefined") {
+            if (Array.isArray(fieldValue)) {
+                fieldValueString = fieldValue.join(", ");
+            } else {
+                fieldValueString = fieldValue;
+            }
+            s += fieldInfo[i].html.replace("$", fieldValueString);
+            s += "\n"
+        }
+    }
     return(s)
 }
 
@@ -92,120 +92,137 @@ function stringifyEntry(entry) {
 
 
 function defineLinks(data_list) {
-    for (i=0;i<data_list.length;i++) {
-            document.getElementById(`entry_${i}`).addEventListener("click", async function (event) {
+    const id_list = getComponent(data_list, "id");
+
+    for (let i = 0; i < id_list.length; i++) {
+        document.getElementById(`entry_${id_list[i]}`).addEventListener("click", async function (event) {
+
             event.preventDefault();
-            const id = event.target.id.replace("entry_", "");
-            try {
+            const id_selected = event.target.id.replace("entry_", "");
 
-                const response = await fetch(`http://127.0.0.1:8090/entry?id=${id}`);
-
-                if (response.ok) {
-
-                    let s;
-
+            genericGet({
+                fetchURL: `http://127.0.0.1:8090/entry?id=${id_selected}`,
+                responseOkFunction: async function(response){
                     const entry = await response.json();
-                    //const entry = JSON.parse(body);
-                    //console.log(entry)
-                    s = stringifyEntry(entry)
-                    document.getElementById('content').innerHTML = s;
-
-                } else {
-                    throw new Error('404 Not Found')
+                    let entryHTML = await stringifyEntry(entry);
+                    document.getElementById('content').innerHTML = entryHTML;
                 }
-            } catch (e) {
-                console.log(e);
-                alert(e);
-            }
+            });
 
         })
     }
 }
 
-document.addEventListener('DOMContentLoaded', async function() {
+async function genericGet(params) {
+    try {
+        const response = await fetch(params.fetchURL);
+        if (response.ok) {
+            return params.responseOkFunction(response)
+        } else {
+            let err = new Error;
+            err.message = `Error ${response.status}: ${response.statusText}`;
+            throw err;
+        }
+    } catch (e) {
+        if (e.message === "NetworkError when attempting to fetch resource.") {
+            e.message = `Error: Could not connect to server.`;
+            alert(e.message);
+        }
+        alert(e.message)
+    }
+}
 
-    const searchForm = document.getElementById("searchForm");
-    searchForm.addEventListener('submit', async function (event) {
+async function search(key) {
+    genericGet({
+        fetchURL: `http://127.0.0.1:8090/search?key=${key}`,
+        //fetchURL: `http://thiswebsitedoesntexist.xctfrvgybuhyinjmkljnhbgvfctr`,
+
+        responseOkFunction: async function(response) {
+            const body = await response.json();
+
+            let s = body.text;
+            let data_list = body.data;
+
+            for (let i = 0; i < data_list.length; i++){
+                s += `<a href ="http://127.0.0.1:8090/entry?id=${data_list[i].id}" id="entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
+            }
+            document.getElementById('content').innerHTML = s;
+            defineLinks(data_list);
+        }
+
+    });
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
+    search("");
+        const searchForm = document.getElementById("searchForm");
+        searchForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         const key = searchForm[0].value;
-
-        try {
-
-            const response = await fetch(`http://127.0.0.1:8090/search?key=${key}`);
-            if (response.ok) {
-
-                let s;
-                if (key === ""){
-                    s = `Showing all results:<br><br>`
-                } else {
-                    s = `Showing results for search "${key}":<br><br>`
-                }
-
-                const body = await response.text();
-                const data_list = JSON.parse(body);
-
-                for (i = 0; i < data_list.length; i++){
-                    s += `<a href ="http://127.0.0.1:8090/entry?id=${i}" id="entry_${i}" >${data_list[i].name}</a><br>`;
-                }
-                document.getElementById('content').innerHTML = s;
-
-                defineLinks(data_list);
-
-            } else {
-                throw new Error('404 Not Found')
-            }
-        } catch (e) {
-            console.log(e);
-            alert(e);
-        }
+        search(key)
     });
 
+    const getFormButton = document.getElementById("getFormButton");
 
+    getFormButton.addEventListener("click", async function (event) {
+        genericGet({
+            fetchURL: `http://127.0.0.1:8090/getFieldInfo?components=label`,
+            responseOkFunction: async function(response){
+                let fieldsInfo = await response.json();
 
-
-    const addForm = document.getElementById("addForm");
-    //console.log(addForm.hasOwnProperty("tatle"))
-    addForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        let formData = {};
-        let labels = document.getElementsByTagName('label');
-        let id;
-
-        for (let i = 0; i < labels.length; i++) {
-            id = labels[i].htmlFor;
-            if (addForm.hasOwnProperty(id)) {
-                formData[id] = {
-                    value: addForm[i].value,
-                    label: labels[i].innerHTML
+                let formString = `<form id="addForm">`;
+                for (let i = 0; i < fieldsInfo.length; i++) {
+                    formString += `<input id="${fieldsInfo[i].id}" name="${fieldsInfo[i].id}" placeholder="${fieldsInfo[i].label}"><br>`;
                 }
+                formString += `<input id="addButton" type="submit" value="Add Entry">`;
+                formString += `</form>`;
+                document.getElementById("sidebar").innerHTML = formString;
+
+                const addForm = document.getElementById("addForm");
+                addForm.addEventListener("submit", async function (event) {
+                    event.preventDefault();
+
+                    let formData = [];
+
+                    for (let i = 0; i < fieldsInfo.length; i++) {
+                        formData.push({
+                            id: fieldsInfo[i].id,
+                            label: fieldsInfo[i].label,
+                            value: document.getElementById(fieldsInfo[i].id).value
+                        });
+
+                    }
+
+                    //console.log(formData);
+
+                    try {
+                        let response = await fetch("http://127.0.0.1:8090/add",{
+                            method: "POST",
+                            //Content-type needs to be correct:
+                            headers:{'Content-Type': 'application/json'},
+                            body: JSON.stringify(formData)
+                        });
+                        if (response.ok) {
+                            const body = await response.text();
+                            const resp = JSON.parse(body);
+
+                            let s = `Entry received:<br>`;
+                            s += await stringifyEntry(resp);
+                            //console.log(s);
+
+                            document.getElementById('content').innerHTML = s;
+                        } else {
+                            throw new Error(response.status + " " + response.statusText)
+                        }
+                    } catch (e) {
+                        console.log(e);
+                        alert(e);
+                    }
+
+                });
+
             }
-        }
-
-        try {
-            let response = await fetch("http://127.0.0.1:8090/add",{
-                method: "POST",
-                //Content-type needs to be correct:
-                headers:{'Content-Type': 'application/json'},
-                body: JSON.stringify(formData)
-            });
-            if (response.ok) {
-                const body = await response.text();
-                const resp = JSON.parse(body);
-
-                let s = `Entry received:<br>`;
-                s += stringifyEntry(resp);
-
-                document.getElementById('content').innerHTML = s;
-            } else {
-                throw new Error(response.status + " " + response.statusText)
-            }
-        } catch (e) {
-            console.log(e);
-            alert(e);
-        }
-
+        })
     });
-
 
 });
