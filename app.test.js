@@ -5,13 +5,18 @@ const request = require('supertest');
 const app = require('./app');
 
 
-describe('GET /search', () => {
+describe('Test GET /search', () => {
 
-    test('GET /search succeeds', (done) => {
-        request(app).get('/search').then((response) => {
-            expect(response.statusCode).toBe(200);
-            done();
-        });
+    test('GET /search succeeds', () => {
+        return request(app)
+            .get('/search')
+            .expect(200);
+    });
+
+    test('GET /search returns JSON', () => {
+        return request(app)
+            .get('/search')
+            .expect('Content-type', /json/);
     });
 
 

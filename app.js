@@ -11,9 +11,20 @@ const fetch = require("node-fetch");
 const primaryDataLocation = "https://api-v3.igdb.com/games";
 //const primaryDataLocation = "https://notareallocation_qnhgbgfdfvdvbhgfgbdf";
 const api_key = "***REMOVED***";
-const secondaryDataLocation = "./sample_data.json";
+const secondaryDataLocation = "./igdb_backup.json";
+
+const fs = require("fs");
 
 
+function saveJSONData (fileName, data_json) {
+    fs.writeFile("./" + fileName, JSON.stringify(data_json, null, 4), (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log("File has been created");
+    });
+}
 
 function getSingleComponent(object, component) {
     let result = [];
@@ -53,9 +64,8 @@ let fields = [
 ];
 
 async function initData(){
-    console.log("---STARTING---")
     const fieldsString = getSingleComponent(fields, "query").join(", ");
-    const limit = 10;
+    const limit = 50;
     const request_body = `fields ${fieldsString}; where platforms = (48, 49); sort popularity desc; limit ${limit};`;
     let data_json;
 
@@ -75,10 +85,20 @@ async function initData(){
             throw new Error('404 Remote Page Not Found')
         }
     } catch(e) {
-        console.log("Error: " + e.message);
-        console.log("Using backup dataset instead.");
-        data_json = require(secondaryDataLocation);
+        console.log("\nError: " + e.message);
+        try {
+            data_json = require(secondaryDataLocation);
+            console.log("\nUsing backup dataset instead.");
+        } catch(e) {
+            console.log("\nAdditional error loading backup dataset: " + e.message);
+            console.log("Server program will now exit.\n");
+            process.exit(1);
+        }
+
     }
+
+
+    //saveJSONData("igdb_backup.json", data_json); //create backup
 
     let entry;
     for (let i = 0; i < data_json.length; i++){
@@ -96,7 +116,6 @@ async function initData(){
         entry.user_submitted = false;
     }
     return (data_json)
-    //return ([{id: 1},{id: 2}])
 }
 
 

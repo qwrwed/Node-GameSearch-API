@@ -1,0 +1,1861 @@
+[
+    {
+        "id": 76882,
+        "cover": {
+            "id": 71296,
+            "image_id": "co1j0g"
+        },
+        "genres": [
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Sekiro: Shadows Die Twice",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "The game takes place in a re-imagined late 16th century Sengoku period Japan. At the end of the Sengoku era, warlord Isshin Ashina stages a bloody coup and seizes the land of Ashina. During this time, a nameless orphan is adopted by the wandering shinobi Owl, who names the orphan \"Wolf\". \n \nTwenty years later, the Ashina clan are on the brink of collapse due to a combination of the now elderly Isshin having fallen ill and the clan's enemies steadily closing in from all sides. Desperate to find a way to prevent the fall of his clan, Isshin's grandson Genichiro captures the Divine Heir Kuro, in hopes of using his \"Dragon Heritage\" to create an immortal army.",
+        "summary": "\"Carve your own clever path to vengeance in an all-new adventure from developer FromSoftware. \n \nExplore late 1500s Sengoku Japan, a brutal period of constant life and death conflict, as you come face to face with larger than life foes in a dark and twisted world. Unleash an arsenal of deadly prosthetic tools and powerful ninja abilities while you blend stealth, vertical traversal, and visceral head to head combat in a bloody confrontation. \n \nTake Revenge. Restore your honor. Kill Ingeniously.\""
+    },
+    {
+        "id": 20910,
+        "cover": {
+            "id": 71568,
+            "image_id": "co1j80"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            }
+        ],
+        "name": "World War Z",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Saber Interactive and Paramount pictures presents World War Z, a new four-player coop third-person shooter coming in 2019 for PlayStation 4, Xbox One, and PC."
+    },
+    {
+        "id": 19561,
+        "cover": {
+            "id": 71279,
+            "image_id": "co1izz"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Days Gone",
+        "platforms": [
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            }
+        ],
+        "storyline": "Set in the beautiful, volcanic scarred high-desert of the Pacific Northwest, Days Gone is an open-world action-adventure game where you play as Deacon St. John, a Drifter and bounty hunter who would rather risk the dangers of the broken road than live in one of the “safe” wilderness encampments. The game takes place two years after a global pandemic has killed almost everyone, but transformed millions of others into what survivors call Freakers – mindless, feral creatures, more animal than human but very much alive and quickly evolving. In the demo you saw two types of Freaks – Newts, which were adolescents when infected, are opportunistic hunters, preferring to hit and run from the shadows; and a Horde. Made up of hundreds of individual Freakers, Hordes eat, move and attack together, almost as one. Some Hordes roam the highways at night, while others, like the one in the demo, have found a food source that keeps it in a single location. Skills learned in his prior life as an outlaw biker have given Deacon a slight edge in the seemingly never-ending fight to stay alive. But will it be enough?",
+        "summary": "Days Gone is an open-world action-adventure game set in a harsh wilderness two years after a devastating global pandemic. Play as Deacon St. John, a Drifter and bounty hunter who rides the broken road, fighting to survive while searching for a reason to live. \n \nAt its core, Days Gone is about survivors and what makes them human: desperation, loss, madness, betrayal, friendship, brotherhood, regret, love – and hope. It’s about how even when confronted with such enormous tragedy they find a reason to live. Hope never dies."
+    },
+    {
+        "id": 65445,
+        "cover": {
+            "id": 71251,
+            "image_id": "co1iz7"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Generation Zero",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Generation Zero is set in 1980s Sweden and tells the story of hostile machines that have taken over the countryside,"
+    },
+    {
+        "id": 22778,
+        "cover": {
+            "id": 71082,
+            "image_id": "co1iui"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            }
+        ],
+        "name": "Outward",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Outward is an open world RPG that you play alone or with friends, either online or in splitscreen. It's more than just an open world RPG you can play coop though: it is an adventurer life simulator. You live the life of an adventurer, from his or her humble beginnings up until retirement. Your life isn't only about killing monsters and looting: you need to eat, drink and sleep; preparing accordingly before jumping into danger. Everything is meant to feel more real and consequential, while still taking place in a high fantasy universe with magic and exotic creatures."
+    },
+    {
+        "id": 19164,
+        "cover": {
+            "id": 72914,
+            "image_id": "co1k9e"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            }
+        ],
+        "name": "Borderlands 3",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "The original shooter-looter returns, packing bazillions of guns and a mayhem-fueled adventure! Blast through new worlds and enemies as one of four new Vault Hunters. Play solo or with friends to take on insane enemies, score loads of loot and save your home from the most ruthless cult leaders in the galaxy."
+    },
+    {
+        "id": 90099,
+        "cover": {
+            "id": 71250,
+            "image_id": "co1iz6"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            },
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            }
+        ],
+        "name": "Tom Clancy's The Division 2",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "IF WASHINGTON D.C. FALLS, HUMANITY FALLS \nWashington D.C. is on the brink of collapse. Lawlessness and instability threaten our society, and rumours of a coup in the Capitol are only amplifying the chaos. All active Division agents are desperately needed to save the city before it's too late. \n \nGEAR UP. SAVE D.C.",
+        "summary": "The Division 2 is an action-shooter RPG set in an open-world. Play in co-op and PvP modes that offer more variety in missions and challenges, new progression systems with unique twists and surprises, and fresh gaming innovations to engage players for years to come."
+    },
+    {
+        "id": 80916,
+        "cover": {
+            "id": 67256,
+            "image_id": "fq2ekyx6ac8em4lpv3zj"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Omensight",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "You are the Harbinger, a skilled warrior who exists outside of time. You have foreseen the annihilation of the land known as Urralia and have been summoned to rewrite its fate. With the power to witness and alter the last moments of Urralia’s inhabitants, it’s up to you to weave a new narrative, pave the way to a brighter future, and give the world of Urralia a second chance."
+    },
+    {
+        "id": 103303,
+        "cover": {
+            "id": 69298,
+            "image_id": "co1hgy"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            }
+        ],
+        "name": "The Elder Scrolls: Blades",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 34,
+                "name": "Android"
+            },
+            {
+                "id": 39,
+                "name": "iOS"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            },
+            {
+                "id": 162,
+                "name": "Oculus VR"
+            }
+        ],
+        "summary": "Take the Elder Scrolls anywhere you go with The Elder Scrolls: Blades. Revealed during the 2018 Bethesda E3 Showcase, Blades is an all-new Elder Scrolls game from Bethesda Game Studios. Launching in winter 2019, Blades will be free-to-play on iPhone, iPad and Android devices."
+    },
+    {
+        "id": 106987,
+        "cover": {
+            "id": 67685,
+            "image_id": "f4nibsaci6ibuvpci9hc"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Torchlight Frontiers",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Set in the same beloved universe as Torchlight I and II, this shared-world action-RPG brings back many of the franchise’s signature features and mechanics that captured the hearts of ARPG fans around the world. Led by former Runic Games and Blizzard North co-founder, Max Schaefer, the team developing Torchlight Frontiers is comprised of veteran developers who were responsible for the games that defined the ARPG genre, including the original Diablo and Torchlight franchises. \n \nTorchlight Frontiers combines the heart of the beloved Torchlight series with a shared, persistent and dynamically generated world. In true Torchlight style, players will team up with friends and devoted pets to hack and slack their way through a vibrant world, discover ancient ruins of lost civilizations and brave dungeons filled with riches and dangerous creatures."
+    },
+    {
+        "id": 113098,
+        "cover": {
+            "id": 69987,
+            "image_id": "co1i03"
+        },
+        "genres": [
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Assassin's Creed: Odyssey - The Fate of Atlantis",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "The story arc will be cut into three episodes, with each episode being released roughly every six weeks after the release of the first, and will set players against mythic creatures while they uncover the mysteries of the fabled sunken city of Atlantis."
+    },
+    {
+        "id": 55038,
+        "cover": {
+            "id": 67343,
+            "image_id": "zitp6m9vsuoi7r0pau8i"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            },
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Immortal: Unchained",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Immortal: Unchained is a souls-inspired third-person shooter/action RPG."
+    },
+    {
+        "id": 25646,
+        "cover": {
+            "id": 69368,
+            "image_id": "co1hiw"
+        },
+        "genres": [
+            {
+                "id": 9,
+                "name": "Puzzle"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Don't Knock Twice",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 45,
+                "name": "PlayStation Network"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "Don't Knock Twice is a first-person horror game based on a psychologically terrifying urban legend. To save her estranged daughter, a guilt-ridden mother must uncover the frightening truth behind the urban tale of a vengeful, demonic witch. One knock to wake her from her bed, twice to raise her from the dead. \n \nExplore a grand manor house and interact with almost every object you see. To find and save your daughter, you will explore all depths of the manor, searching for hidden clues and using items to fight or escape the terror that surrounds you. \n \nThe game is based on the film, Don't Knock Twice, starring Katee Sackhoff (Battlestar Galactica) and directed by Caradog James (The Machine)."
+    },
+    {
+        "id": 22387,
+        "cover": {
+            "id": 32604,
+            "image_id": "vqtn6gcnjeathhmpyoy6"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 24,
+                "name": "Tactical"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Legrand Legacy",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "LEGRAND LEGACY - TALE OF THE FATEBOUNDS \nLEGRAND LEGACY is a spiritual successor to some all-time favorite JRPGs with a fresh take on the classic turn-based combat. Explore a beautifully hand-drawn world riddled with fantastical creatures, devastating wars, and intriguing stories of personal redemption. Play our demo and discover why Legrand Legacy is the \"Most Promising Game\" of the year! \n \nTHE STORY \nMugna Feud, the great war between the Kingdoms of Fandor and Altea, puts Legrand in a chaotic state. You play as Finn, a young slave who wakes up without any memory of his past, yet soon discovers that he possesses mysterious powers beyond his control. Embark on an epic adventure in this sprawling fantasy universe and fight alongside the Fatebounds to bring peace back to Legrand and prevent the Second Coming! But be careful who you trust, everyone has a secret to hide… \n \nRELEASE INFO \nLegrand Legacy will be released for Windows on Steam and DRM-free in September 2017 \n \nHIGHLIGHTS \n- A fully immersive experience with stunning FMV, fully rendered 3D cinematic, and epic original soundtrack \n- 3D models and original assets come together with gorgeously stylized hand-drawn 2D backgrounds \n- Action packed turn-based combat and tactical warfare scenarios that will test your wits and keep you on your toes \n- Recruit NPCs to rebuild your castle, play mini games, or go on rewarding side quests \n- Collect loot from slain enemies and craft items or sell them for money \n- Configure items and grimoire that characters can wield in combat, set combat formation, or review journal to track quests"
+    },
+    {
+        "id": 26145,
+        "cover": {
+            "id": 20303,
+            "image_id": "duf8ynjzw9umyejj2kvw"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 13,
+                "name": "Simulator"
+            },
+            {
+                "id": 15,
+                "name": "Strategy"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Impact Winter",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "In 30 days, help is coming...       \n       \nA mysterious radio transmission claims that help is inbound. You are Jacob Solomon: leader of a makeshift team trying to survive the aftermath of a devastating asteroid collision.  The world you once knew is no more – buried deep beneath the constant snowfall.       \n       \nYour goal: keep your companions alive until rescue."
+    },
+    {
+        "id": 54775,
+        "cover": {
+            "id": 68196,
+            "image_id": "zap7fmnmcwmpr2qimk3f"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            }
+        ],
+        "name": "Shadows: Awakening",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Shadows: Awakening is a unique, isometric single-player RPG with real-time tactical combat. You embark on an epic adventure with challenging gameplay, a gripping storyline and enchanting graphics."
+    },
+    {
+        "id": 36198,
+        "cover": {
+            "id": 69828,
+            "image_id": "co1hvo"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Children of Morta",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 14,
+                "name": "Mac"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "Children of Morta is a narrative driven hack and slash roguelike. Take on the role of a member of the Bergson family, the Guardians of Mount Morta, as you fight desperately against the Corruption. Experience not only what it means to be a hero, but to be part of a family that bears the weight of the mountain together."
+    },
+    {
+        "id": 19560,
+        "cover": {
+            "id": 55291,
+            "image_id": "cintjlnx6o8qyqtcnajl"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "God of War",
+        "platforms": [
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            }
+        ],
+        "summary": "\"It is a new beginning for Kratos. Living as a man, outside the shadow of the gods, he seeks solitude in the unfamiliar lands of Norse mythology. With new purpose and his son at his side, Kratos must fight for survival as powerful forces threaten to disrupt the new life he has created...\""
+    },
+    {
+        "id": 102584,
+        "cover": {
+            "id": 66670,
+            "image_id": "phap2iuixyrabhrgf0nr"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Dying Light 2",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ]
+    },
+    {
+        "id": 43165,
+        "cover": {
+            "id": 61034,
+            "image_id": "fkgei0bjlkkv8psmcrb1"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 13,
+                "name": "Simulator"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "My Time at Portia",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "My Time at Portia is a simulation open world RPG game. The world is set in a post-apocalypse setting. Humans are few and relics from the past are everywhere. The player will need to start a new life in a town on the edge of civilization called Portia. The player will start a workshop and build things with relics from the past for the betterment of society. The goal of the game is to make the workshop as big as possible. \n \nWe want to enrich the world with other NPCs that have their unique behaviors. Characters will go to school, do their jobs, workout, and have fun. They also have unique stories for the player to experience. The player will be able to get into relationships with other characters, be them friendships or romances. Romances can end in marriages. \n \nPlayers can gather materials from an open world. Cut down tree, pick up herbs, mine in ruins, even plant your own garden. There are vast areas for the player to explore around Portia. Deserts, islands, reefs, highlands, marshlands, and more! Each area bringing their own unique items and monsters. There are two different types of dungeons in this game. Players can gather relics and ores from the abandoned dungeons, and fight off monsters to gain look in the hazardous dungeons. \n \nWe hope to give the player a truly memorable time in this game, of a warm and welcoming little town full of experiences."
+    },
+    {
+        "id": 28168,
+        "cover": {
+            "id": 21919,
+            "image_id": "hpfrble5webnvxu2boib"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Code Vein",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "In the not too distant future, a mysterious disaster has brought collapse to the world as we know it. Towering skyscrapers, once symbols of prosperity, are now lifeless graves of humanity’s past pierced by the Thorns of Judgment. At the center of the destruction lies a hidden society of Revenants called Vein. This final stronghold is where the remaining few fight to survive, blessed with Gifts of power in exchange for their memories and a thirst for blood. Give into the bloodlust fully and risk becoming one of the Lost, fiendish ghouls devoid of any remaining humanity. Wandering aimlessly in search of blood, the Lost will stop at nothing to satisfy their hunger. Team up and embark on a journey to the ends of hell to unlock your past and escape your living nightmare in CODE VEIN.",
+        "summary": "Code Vein is set in the not too distant future where a disaster has brought the world to ruin and vampire-like beings battle for dominance."
+    },
+    {
+        "id": 76253,
+        "cover": {
+            "id": 66333,
+            "image_id": "a2ppkmdjno7ja5w24qeq"
+        },
+        "genres": [
+            {
+                "id": 25,
+                "name": "Hack and slash/Beat 'em up"
+            }
+        ],
+        "name": "Devil May Cry 5",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "A brand new entry in the legendary over-the-top action series comes to Xbox One, PlayStation 4, and PC in Spring 2019, complete with its signature blend of high-octane stylized action and otherworldly and original characters the series is known for. Director Hideaki Itsuno and the core team have reunited to create the most over the top, technically advanced, utterly insane action experience of this generation. \n \nYears have passed since the legions of hell have set foot in this world, but now a new demonic invasion has begun, and humanity’s last hope will rest in the hands of three lone demon hunters, each offering a radically different play style. United by fate and a thirst for vengeance, these demon hunters will have to face their demons if they hope to survive."
+    },
+    {
+        "id": 13200,
+        "cover": {
+            "id": 61242,
+            "image_id": "qcndvtrd6jud2uejurwd"
+        },
+        "genres": [
+            {
+                "id": 13,
+                "name": "Simulator"
+            },
+            {
+                "id": 15,
+                "name": "Strategy"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Planetbase",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 14,
+                "name": "Mac"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Guide a group of space settlers trying to establish an outpost on a remote planet. Grow food, collect energy, mine resources, manufacture bots, and build a fully self-sufficient colony."
+    },
+    {
+        "id": 36950,
+        "cover": {
+            "id": 71030,
+            "image_id": "co1it2"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            },
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Anthem",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Anthem is a shared-world action RPG, where players can delve into a vast landscape teeming with amazing technology and forgotten treasures. This is a world where Freelancers are called upon to defeat savage beasts, ruthless marauders, and forces plotting to conquer humanity."
+    },
+    {
+        "id": 114795,
+        "cover": {
+            "id": 71417,
+            "image_id": "co1j3t"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            }
+        ],
+        "name": "Apex Legends",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "A WORLD WHERE ANYTHING GOES \n \nThe Frontier War is over. After hundreds of years of conflict between the Interstellar Manufacturing Corporation and the Militia founded to fight them, the far-off region of space known as the Frontier can finally know peace. \n \nBut liberation can come at a cost: when the IMC and the Militia departed, they took everything of value and left the Frontier worlds in disarray. With no way to support themselves, the people of the Frontier had no choice but to leave their homes. The brave relocated to the Outlands. \n \nA remote cluster of planets on the fringes of the Frontier, the Outlands are untouched by war and teeming with resources and opportunity. But life is cheap here, and danger lurks around every corner. Its pioneers, explorers, and outlaws used to spend their lives locked in an endless power struggle – now, they settle their differences in the Apex Games, a bloodsport where Legends from all corners of the Frontier compete for money, fame, and glory.",
+        "summary": "\"Conquer with character in Apex Legends, a free-to-play* battle royale game where legendary challengers fight for glory, fame, and fortune on the fringes of the Frontier. Explore a growing roster of diverse characters and experience intense tactical squad play in a bold, new evolution of battle royale.\""
+    },
+    {
+        "id": 112916,
+        "cover": {
+            "id": 70935,
+            "image_id": "co1iqf"
+        },
+        "genres": [
+            {
+                "id": 4,
+                "name": "Fighting"
+            }
+        ],
+        "name": "Mortal Kombat 11",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "Mortal Kombat is back and better than ever in the next evolution of the iconic franchise. \n \nThe all new Custom Character Variations give you unprecedented control of your fighters to make them your own. The new graphics engine showcases every skull-shattering, eye-popping moment, bringing you so close to the fight you can feel it. Featuring a roster of new and returning Klassic Fighters, Mortal Kombat's best-in-class cinematic story mode continues the epic saga over 25 years in the making."
+    },
+    {
+        "id": 23733,
+        "cover": {
+            "id": 67622,
+            "image_id": "td1t8kb33gyo8mvhl2pc"
+        },
+        "genres": [
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Tunic",
+        "platforms": [
+            {
+                "id": 3,
+                "name": "Linux"
+            },
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 14,
+                "name": "Mac"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "\"TUNIC is an upcoming action-adventure game from solo developer Andrew Shouldice about a little fox in a big world where you do not belong. Coming to Windows, Mac, Linux, and consoles in 2019.\""
+    },
+    {
+        "id": 24426,
+        "cover": {
+            "id": 68139,
+            "image_id": "qschbxorcjwlm8fj9uzf"
+        },
+        "genres": [
+            {
+                "id": 8,
+                "name": "Platform"
+            },
+            {
+                "id": 9,
+                "name": "Puzzle"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Forgotton Anne",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 14,
+                "name": "Mac"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "storyline": "\"You play as Anne, the enforcer who keeps order in the Forgotton Realm, as she sets out to squash a rebellion that might prevent her master, Bonku, and herself from returning to the human world... \"",
+        "summary": "Forgotton Anne is a 2d cinematic adventure game combining puzzle platforming with adventure game elements. You play as Anne, the enforcer keeping order in the Forgotton Realm, as she sets out to squash a rebellion that might prevent her master, Bonku, and herself from returning to the human world. \n \nThe World of Forgotton Anne: Imagine a place where everything that is lost and forgotten goes; old toys, letters, single socks. The Forgotten Realm is a magical world inhabited by Forgotlings, creatures composed of mislaid objects longing to be remembered again."
+    },
+    {
+        "id": 51524,
+        "cover": {
+            "id": 64924,
+            "image_id": "difxiktpsozrg5wfmxag"
+        },
+        "genres": [
+            {
+                "id": 2,
+                "name": "Point-and-click"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "The Walking Dead: The Final Season",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "The final season of Telltale's The Walking Dead series which wraps up the story of Clementine."
+    },
+    {
+        "id": 47823,
+        "cover": {
+            "id": 44337,
+            "image_id": "eujx4gdidznmdkdpj5e6"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Citadel: Forged With Fire",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "\"Citadel: Forged With Fire is a massive online sandbox RPG with elements of magic, spellcasting and inter-kingdom conflict. As a newly minted apprentice of the magic arts, you will set off to investigate the dangerous world of Ignus. Your goal: create a name for yourself and achieve notoriety and power among the land’s ruling Houses. \n \nYou have complete freedom to pursue your own destiny; hatch plots of trickery and deceit to ascend the ranks among allies and enemies, become an infamous hunter of other players, build massive and unique castles, tame mighty beasts to do your bidding, and visit uncharted territories to unravel their rich and intriguing history. The path to ultimate power and influence is yours to choose.\""
+    },
+    {
+        "id": 27092,
+        "cover": {
+            "id": 55087,
+            "image_id": "ers9sp4xfqgdvhc8wsoa"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 15,
+                "name": "Strategy"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "GreedFall",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "GreedFall is the latest RPG from Spiders, currently in development for PlayStation 4, Xbox One and PC. Revealed at \"le What's Next de Focus\" event last week, GreedFall today unveil a first teaser trailer, hinting at the 17th century setting of the game and its ambiance embedded in magic. \n \nExplore a fresh new world as you set foot - alongside many other settlers, mercenaries and treasure hunters - on a remote island seeping with magic, rumored to be filled with riches and lost secrets. A grand journey filled with mystery follows, as you find yourself in the middle of ever-increasing tensions between the invading settlers and the locals, protected by supernatural beings, manifestation of the island’s earthly magic."
+    },
+    {
+        "id": 1942,
+        "cover": {
+            "id": 20471,
+            "image_id": "tri1c6vbydeosoqajwt1"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "The Witcher 3: Wild Hunt",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "The Witcher 3: Wild Hunt concludes the story of the witcher Geralt of Rivia, the series' protagonist, whose story to date has been covered in the previous installments. Geralt's new mission comes in dark times as the mysterious and otherworldly army known as the Wild Hunt invades the Northern Kingdoms, leaving only blood soaked earth and fiery ruin in its wake; and it seems the Witcher is the key to stopping their cataclysmic rampage.",
+        "summary": "The Witcher: Wild Hunt is a story-driven, next-generation open world role-playing game set in a visually stunning fantasy universe full of meaningful choices and impactful consequences. In The Witcher you play as the professional monster hunter, Geralt of Rivia, tasked with finding a child of prophecy in a vast open world rich with merchant cities, viking pirate islands, dangerous mountain passes, and forgotten caverns to explore."
+    },
+    {
+        "id": 36649,
+        "cover": {
+            "id": 70485,
+            "image_id": "co1idx"
+        },
+        "genres": [
+            {
+                "id": 13,
+                "name": "Simulator"
+            },
+            {
+                "id": 15,
+                "name": "Strategy"
+            }
+        ],
+        "name": "Tropico 6",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 14,
+                "name": "Mac"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "El Presidente is back! Prove yourself once again as a feared dictator or peace-loving statesman on the island state of Tropico and shape the fate of your very own banana republic through four distinctive eras."
+    },
+    {
+        "id": 78632,
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Untitled Danganronpa Game",
+        "platforms": [
+            {
+                "id": 46,
+                "name": "PlayStation Vita"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            }
+        ],
+        "summary": "An untitled game said to be in development after a job listing was spotted in November related to the Danganronpa series. \nThe posted job listing was looking for a game programmer, character designer, and 3D designer to mainly participate in development of the series, along with information about a game in the action genre for PlayStation 4 and PlayStation Vita."
+    },
+    {
+        "id": 103282,
+        "cover": {
+            "id": 69738,
+            "image_id": "co1ht6"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            }
+        ],
+        "name": "Sekiro: Shadows Die Twice - Collector's Edition",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "The Sekiro: Shadows Die Twice Collector’s Edition includes: \n \n7” Shinobi Statue. \nSteelBook. \nCollectible Artbook. \nMap. \nDigital Soundtrack. \nReplica Game Coins."
+    },
+    {
+        "id": 101608,
+        "cover": {
+            "id": 69296,
+            "image_id": "co1hgw"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "ANIMA: GATE OF MEMORIES - THE NAMELESS CHRONICLES",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Anima The Nameless Chronicles is a third person action RPG that tells the story of a man without name, an immortal being cursed to walk the world until the end of time. When a shadow of his past rises again in his path, he will be forced to take part in a conflict in which the very existence is in question. But... Will he be our last hope, or our doom? Accompany him on a travel through his past lives and discover the secret story behind the Gate of Memories. The Nameless Chronicles is the second videogame set in the world of Gaia, from the Anima: Beyond Fantasy RPG table-top books. You will enjoy a deep and multifaceted story where your choices and actions directly impact the journey and decide the fate of the protagonist."
+    },
+    {
+        "id": 55092,
+        "cover": {
+            "id": 61276,
+            "image_id": "red8ghkhygs51iyfcusq"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Secret of Mana",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 45,
+                "name": "PlayStation Network"
+            },
+            {
+                "id": 46,
+                "name": "PlayStation Vita"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            }
+        ],
+        "summary": "\"The memorable adventure of Randi, Primm and Popoi is reborn as \"Secret of Mana\"! \nEmbark on an action-packed, worldwide adventure in this 3D remake.\""
+    },
+    {
+        "id": 1905,
+        "cover": {
+            "id": 72283,
+            "image_id": "co1jrv"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            }
+        ],
+        "name": "Fortnite",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 14,
+                "name": "Mac"
+            },
+            {
+                "id": 34,
+                "name": "Android"
+            },
+            {
+                "id": 39,
+                "name": "iOS"
+            },
+            {
+                "id": 45,
+                "name": "PlayStation Network"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "Fortnite is the living, action building game from the developer formerly known as Epic MegaGames. You and your friends will lead a group of Heroes to reclaim and rebuild a homeland that has been left empty by mysterious darkness only known as \"the Storm\". \n \nBand together online to build extravagant forts, find or build insane weapons and traps and protect your towns from the strange monsters that emerge during the Storm. In an action experience from the only company smart enough to attach chainsaws to guns, get out there to push back the Storm and save the world. And don't forget to loot all the things."
+    },
+    {
+        "id": 37016,
+        "cover": {
+            "id": 71083,
+            "image_id": "co1iuj"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Metro Exodus",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "Metro Exodus is an epic, story-driven first person shooter from 4A Games that blends deadly combat and stealth with exploration and survival horror in one of the most immersive game worlds ever created. Explore the Russian wilderness across vast, non-linear levels and follow a thrilling story-line that spans an entire year through spring, summer and autumn to the depths of nuclear winter. Inspired by the novels of Dmitry Glukhovsky, Metro Exodus continues Artyom’s story in the greatest Metro adventure yet"
+    },
+    {
+        "id": 101211,
+        "cover": {
+            "id": 65701,
+            "image_id": "if6dxsuhv2vll1bonvl0"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            },
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "RAGE 2",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "An asteroid has annihilated 80% of the earth’s population, and humanity’s numbers are dwindling. Ruthless and bloodthirsty gangs roam the open roads and the tyrannical Authority seek to rule with an iron fist. As Walker, the last Ranger of the wasteland and a threat to their power, you have been robbed of your home and left for dead. Now you’ll have to rage for justice and freedom. With ludicrous vehicle combat, super-powered first-person mayhem, and an open world full of emergent madness, you will tear across an unforgiving wasteland battling sadistic gangs to find the tools and tech needed to crush the oppressive rule of The Authority once and for all.",
+        "summary": "Dive headfirst into a dystopian world devoid of society, law, and order. RAGE 2 brings together a true open world FPS experience where you can go anywhere, shoot anything, and explode everything."
+    },
+    {
+        "id": 28070,
+        "cover": {
+            "id": 68193,
+            "image_id": "xrtbiz7tiyfsbxkqt8gc"
+        },
+        "genres": [
+            {
+                "id": 8,
+                "name": "Platform"
+            },
+            {
+                "id": 9,
+                "name": "Puzzle"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "PLANET ALPHA",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "PLANET ALPHA is an adventure set in a living alien world where you have the ability to manipulate the daytime. \n \nTo survive on this strange planet you will have to be observant of how the environment and the wildlife behaviour changes depending on the time of day."
+    },
+    {
+        "id": 25076,
+        "cover": {
+            "id": 65570,
+            "image_id": "yfk9f2lbo0r7slytuhra"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            },
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Red Dead Redemption 2",
+        "platforms": [
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "America, 1899. The end of the wild west era has begun as lawmen hunt down the last remaining outlaw gangs. Those who will not surrender or succumb are killed. \n \nAfter a robbery goes badly wrong in the western town of Blackwater, Arthur Morgan and the Van der Linde gang are forced to flee. With federal agents and the best bounty hunters in the nation massing on their heels, the gang must rob, steal and fight their way across the rugged heartland of America in order to survive. As deepening internal divisions threaten to tear the gang apart, Arthur must make a choice between his own ideals and loyalty to the gang who raised him.",
+        "summary": "Developed by the creators of Grand Theft Auto V and Red Dead Redemption, Red Dead Redemption 2 is an epic tale of life in America’s unforgiving heartland. The game's vast and atmospheric world will also provide the foundation for a brand new online multiplayer experience."
+    },
+    {
+        "id": 20342,
+        "cover": {
+            "id": 20118,
+            "image_id": "nfmohbep762muwnjboio"
+        },
+        "genres": [
+            {
+                "id": 8,
+                "name": "Platform"
+            },
+            {
+                "id": 9,
+                "name": "Puzzle"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Toby: The Secret Mine",
+        "platforms": [
+            {
+                "id": 3,
+                "name": "Linux"
+            },
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 14,
+                "name": "Mac"
+            },
+            {
+                "id": 34,
+                "name": "Android"
+            },
+            {
+                "id": 39,
+                "name": "iOS"
+            },
+            {
+                "id": 41,
+                "name": "Wii U"
+            },
+            {
+                "id": 45,
+                "name": "PlayStation Network"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 92,
+                "name": "SteamOS"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "storyline": "A peaceful way of life in a small village in the mountains was thrown into disorder. Someone has kidnapped most of it’s residents. A couple of brave hearts tried to rescue their friends but none of them has returned. Little Toby didn’t want to just sit and wait so he decided to find them by himself. He went to the near deep forest but he soon realized this is just a beginning of a big adventure.",
+        "summary": "A challenging puzzle platformer inspired by games like Limbo and Badland."
+    },
+    {
+        "id": 13210,
+        "cover": {
+            "id": 71498,
+            "image_id": "co1j62"
+        },
+        "genres": [
+            {
+                "id": 12,
+                "name": "Role-playing (RPG)"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "How to Survive 2",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "Several years have passed since the original How to Survive events on Los Riscos’ archipelago. Now the local infection has turned into a worldwide pandemic. Everyone around the world, groups of people or lone wolves, try to survive one more day among the infected, attempting to recover a semblance of normal life. You find yourself in Louisiana and your survival chance starts by building a safe camp and becoming a skilled survivalist. \nFind water, food and shelter and talk to the unconventional locals to make your way around.",
+        "summary": "Dead or Alive? Make up your mind, stranger. We don’t like that undead business here in Louisiana… Survive solo or with friends as you look to fulfill your basic needs of food, water and shelter, crafting your own tools and weapons while you secure your camp and face flesh hungry zombies."
+    },
+    {
+        "id": 26226,
+        "cover": {
+            "id": 61293,
+            "image_id": "hybw5ksgnrhdm23wshqi"
+        },
+        "genres": [
+            {
+                "id": 8,
+                "name": "Platform"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Celeste",
+        "platforms": [
+            {
+                "id": 3,
+                "name": "Linux"
+            },
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 14,
+                "name": "Mac"
+            },
+            {
+                "id": 45,
+                "name": "PlayStation Network"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 92,
+                "name": "SteamOS"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "A single-player platformer about climbing a mountain. Battle your inner demons and climb through more than 250 devious stages to reach the summit. It won't be easy."
+    },
+    {
+        "id": 9061,
+        "cover": {
+            "id": 24573,
+            "image_id": "gtzfjc9pipa6s7v7m68g"
+        },
+        "genres": [
+            {
+                "id": 4,
+                "name": "Fighting"
+            },
+            {
+                "id": 8,
+                "name": "Platform"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Cuphead",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "summary": "Cuphead is a classic run and gun action game heavily focused on boss battles. Inspired by cartoons of the 1930s, the visuals and audio are painstakingly created with the same techniques of the era, i.e. traditional cel animation (hand drawn & hand inked!), watercolor backgrounds, and original jazz recordings. Play as Cuphead or Mugman (in single player or co-op) as you traverse strange worlds, acquire new weapons, learn powerful super moves, and discover hidden secrets. Cuphead is all action, all the time."
+    },
+    {
+        "id": 26298,
+        "cover": {
+            "id": 70118,
+            "image_id": "co1i3q"
+        },
+        "genres": [
+            {
+                "id": 31,
+                "name": "Adventure"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Sea of Solitude",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "summary": "The second title in the EA Originals lineup, Sea of Solitude is an adventure game where humans turn into monsters if they get too lonely. From the Berlin-based Jo-Mei Games."
+    },
+    {
+        "id": 18225,
+        "cover": {
+            "id": 69615,
+            "image_id": "co1hpr"
+        },
+        "genres": [
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "The Sinking City",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "The city trembles on the brink of madness. Can you investigate this beleaguered town and untangle the tragic extent of its failings or will you be driven beyond madness yourself?",
+        "summary": "The Sinking City is a game of investigation genre taking place in a fictional open world inspired by the works of H.P. Lovecraft. \nThe player incarnates a private investigator in 1920s, who finds himself in a city of New England, Oakmont Massachusetts. It’s currently suffering from extensive waterflood, and its cause is clearly supernatural."
+    },
+    {
+        "id": 78550,
+        "cover": {
+            "id": 63683,
+            "image_id": "mh2ihxvmbkpxs69g8vem"
+        },
+        "genres": [
+            {
+                "id": 11,
+                "name": "Real Time Strategy (RTS)"
+            },
+            {
+                "id": 13,
+                "name": "Simulator"
+            },
+            {
+                "id": 15,
+                "name": "Strategy"
+            },
+            {
+                "id": 32,
+                "name": "Indie"
+            }
+        ],
+        "name": "Bad North",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 34,
+                "name": "Android"
+            },
+            {
+                "id": 39,
+                "name": "iOS"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            },
+            {
+                "id": 130,
+                "name": "Nintendo Switch"
+            }
+        ],
+        "storyline": "Your home is under attack. The king is dead at the hands of viking invaders. The young Prince and Princess flee from their home and must gather whatever resources and loyal bannermen they can muster to survive the oncoming horde.",
+        "summary": "\"Bad North is a minimalistic real-time tactics roguelite game that combines a charming aesthetic and simple, accessible controls with a surprisingly deep combat simulation.\""
+    },
+    {
+        "id": 1020,
+        "cover": {
+            "id": 58397,
+            "image_id": "t0zqmqhdcxppyol3mtlg"
+        },
+        "genres": [
+            {
+                "id": 5,
+                "name": "Shooter"
+            },
+            {
+                "id": 10,
+                "name": "Racing"
+            },
+            {
+                "id": 14,
+                "name": "Sport"
+            },
+            {
+                "id": 31,
+                "name": "Adventure"
+            }
+        ],
+        "name": "Grand Theft Auto V",
+        "platforms": [
+            {
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            },
+            {
+                "id": 9,
+                "name": "PlayStation 3"
+            },
+            {
+                "id": 12,
+                "name": "Xbox 360"
+            },
+            {
+                "id": 48,
+                "name": "PlayStation 4"
+            },
+            {
+                "id": 49,
+                "name": "Xbox One"
+            }
+        ],
+        "storyline": "Los Santos: a sprawling sun-soaked metropolis full of self-help gurus, starlets and fading celebrities, once the envy of the Western world, now struggling to stay afloat in an era of economic uncertainty and cheap reality TV. \n \nAmidst the turmoil, three very different criminals plot their own chances of survival and success: Franklin, a street hustler looking for real opportunities and serious money; Michael, a professional ex-con whose retirement is a lot less rosy than he hoped it would be; and Trevor, a violent maniac driven by the chance of a cheap high and the next big score. Running out of options, the crew risks everything in a series of daring",
+        "summary": "The biggest, most dynamic and most diverse open world ever created, Grand Theft Auto V blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story."
+    }
+]
