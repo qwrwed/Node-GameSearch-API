@@ -13,7 +13,7 @@ const primaryDataLocation = "https://api-v3.igdb.com/games";
 const api_key = "***REMOVED***";
 const secondaryDataLocation = "./sample_data.json";
 
-let data_list;
+
 
 function getSingleComponent(object, component) {
     let result = [];
@@ -53,9 +53,12 @@ let fields = [
 ];
 
 async function initData(){
+    console.log("---STARTING---")
     const fieldsString = getSingleComponent(fields, "query").join(", ");
-    const limit = 50;
+    const limit = 10;
+    const request_body = `fields ${fieldsString}; where platforms = (48, 49); sort popularity desc; limit ${limit};`;
     let data_json;
+
     try {
         let response = await fetch(primaryDataLocation, {
             headers: {
@@ -63,9 +66,8 @@ async function initData(){
                 Accept: "application/json"
             },
             method:"POST",
-            body: `fields ${fieldsString}; where platforms = (48, 49); sort popularity desc; limit ${limit};`
+            body: request_body
         });
-
 
         if (response.ok) {
             data_json = await response.json();
@@ -77,6 +79,7 @@ async function initData(){
         console.log("Using backup dataset instead.");
         data_json = require(secondaryDataLocation);
     }
+
     let entry;
     for (let i = 0; i < data_json.length; i++){
         entry = data_json[i];
@@ -91,27 +94,34 @@ async function initData(){
             entry.platforms = getSingleComponent(entry.platforms, "name")
         }
         entry.user_submitted = false;
-        //console.log(entry)
-        //console.log(data_json[i])
     }
     return (data_json)
+    //return ([{id: 1},{id: 2}])
 }
 
 
 //initialise the data
-initData().then(data => data_list = data);
+let data_list = (async () =>{
+    return(await initData());
+})();
 
 
 //GET method to list/search
 app.get('/search', async function (req, resp) {
 
-    const key = req.query.key;
+    data_list = await data_list
+    //console.log(await data_list)
+    let key = req.query.key;
     let info_full;
     let info_search = '';
     let entry, entryName;
     let resp_list = [];
 
-    for (let i = 0; i < data_list.length; i++) {
+    if (typeof(key) === "undefined") {
+        key = "";
+    }
+
+    for (let i = 0; i < await data_list.length; i++) {
         entry = data_list[i];
         entryName = entry.name;
         if (entryName.toLowerCase().includes(key.toLowerCase())) {
@@ -205,8 +215,6 @@ app.post('/add', async function(req, resp){
             entry[fields[i].id] = parsedField;
         }
     }
-    console.log(fields)
-    console.log(entry)
 
     if (validRequest) {
         entry.user_submitted = true;
