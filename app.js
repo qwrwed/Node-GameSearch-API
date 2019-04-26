@@ -5,102 +5,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('client'));
 
-const fetch = require("node-fetch");
-//const primaryDataLocation = 'http://www.recipepuppy.com/api/?i=potato'
-//const primaryDataLocation = 'http://www.recipepuppy.com/api/?i='
-const primaryDataLocation = "https://api-v3.igdb.com/games";
-//const primaryDataLocation = "https://notareallocation_qnhgbgfdfvdvbhgfgbdf";
-const api_key = "***REMOVED***";
-const secondaryDataLocation = "./igdb_backup.json";
-
-const fs = require("fs");
+const utilities = require("./utilities");
+const { getSingleComponent, getMultipleComponents, findComponent, fields } = utilities;
 
 
-function saveJSONData (fileName, data_json) {
-    fs.writeFile("./" + fileName, JSON.stringify(data_json, null, 4), (err) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        console.log("File has been created");
-    });
-}
-
-function getSingleComponent(object, component) {
-    let result = [];
-    for (let i = 0; i < object.length; i++) {
-        result.push(object[i][component])
-    }
-    return(result)
-}
-
-function getMultipleComponents(object, componentList) {
-    let result = [];
-    for (let i = 0; i < object.length; i++) {
-        let element = {};
-        for (let j = 0; j < componentList.length; j++) {
-            element[componentList[j]] = object[i][componentList[j]];
-        }
-        result.push(element);
-    }
-    return(result)
-}
-
-let fields = [
-    /*
-    The order of fields in this array is the order in which they will be shown (in forms, content etc).
-    Fields can be added or removed here to automatically modify all instances of all fields client- and server-side.
-    - id: Field name as it is known in this program. Used in JSON attibutes and HTML element id.
-    - query: Field name as it is known to the API (attibutes are sent when the API would otherwise return a number).
-    - label: Field name as it should be shown to the user (e.g. with capitalisation).
-    - html: HTML content associated with the field to inject into the page.
-    */
-    {id: "name", query: "name", label: "Name", html: `<h1>$</h1>`},
-    {id: "platforms", query: "platforms.name", label: "Platforms", html: `Platforms: $<br>`},
-    {id: "genres", query: "genres.name", label: "Genres", html: `Genres: $<br>`},
-    {id: "cover", query: "cover.image_id", label: "Image URL", html: `<img src=$><br>`},
-    {id: "summary", query: "summary", label: "Summary", html: `Summary: $<br>`},
-    {id: "storyline", query: "storyline", label: "Plot", html: `Plot: $<br>`},
-];
+const fetch_initial_data = require("./fetch_initial_data");
 
 async function initData(){
-    const fieldsString = getSingleComponent(fields, "query").join(", ");
-    const limit = 50;
-    const request_body = `fields ${fieldsString}; where platforms = (48, 49); sort popularity desc; limit ${limit};`;
-    let data_json;
-
-    try {
-        let response = await fetch(primaryDataLocation, {
-            headers: {
-                "user-key": api_key,
-                Accept: "application/json"
-            },
-            method:"POST",
-            body: request_body
-        });
-
-        if (response.ok) {
-            data_json = await response.json();
-        } else {
-            throw new Error('404 Remote Page Not Found')
-        }
-    } catch(e) {
-        console.log("\nError: " + e.message);
-        try {
-            data_json = require(secondaryDataLocation);
-            console.log("\nUsing backup dataset instead.");
-        } catch(e) {
-            console.log("\nAdditional error loading backup dataset: " + e.message);
-            console.log("Server program will now exit.\n");
-            process.exit(1);
-        }
-
-    }
-
-
+    let data_json = await fetch_initial_data();
     //saveJSONData("igdb_backup.json", data_json); //create backup
 
     let entry;
+    let ratings = {
+        1: "3+",
+        2: "7+",
+        3: "12+",
+        4: "16+",
+        5: "18+",
+        6: "Pending",
+    };
     for (let i = 0; i < data_json.length; i++){
         entry = data_json[i];
         // parse and replace components of each entry where necessary
@@ -113,23 +36,36 @@ async function initData(){
         if (typeof(entry.platforms) !== "undefined"){
             entry.platforms = getSingleComponent(entry.platforms, "name")
         }
+
+        let pegiRating = findComponent(entry.age_ratings, "category", 2);
+        if (typeof(pegiRating) !== "undefined"){
+            entry.age_rating = ratings[pegiRating.rating];
+        } else {
+            entry.age_rating = "None Set"
+        }
+
         entry.user_submitted = false;
     }
-    return (data_json)
+    return(data_json)
 }
 
 
-//initialise the data
+// Initialise the data list, once
+// This will set data_list to be a Promise that contains the list of data
+// This Promise will be resolved by the middleware app.use() when it is needed
 let data_list = (async () =>{
     return(await initData());
 })();
 
+// Ensure promise containing data_list is resolved for any request
+app.use(async function (req, res, next) {
+    data_list = await data_list;
+    next()
+});
 
 //GET method to list/search
-app.get('/search', async function (req, resp) {
+app.get('/games/search', async function (req, resp) {
 
-    data_list = await data_list
-    //console.log(await data_list)
     let key = req.query.key;
     let info_full;
     let info_search = '';
@@ -174,20 +110,24 @@ app.get('/search', async function (req, resp) {
 });
 
 //GET method for individual details
-app.get('/entry', async function (req, resp){
+app.get('/games/entry', async function (req, resp){
     //Response provided as JSON
     resp.send(data_list[req.query.id]);
 });
 
 
-app.get('/getFieldInfo', function(req ,resp){
-    let components = req.query.components.split(",");
-    if (!components.includes("id")){
-        components.unshift("id");
+app.get('/games/getFieldInfo', function(req ,resp){
+    if (typeof(req.query) === "undefined") {
+        resp.send(fields)
+    } else {
+        let components = req.query.components.split(",");
+        if (!components.includes("id")) {
+            components.unshift("id");
+        }
+        resp.send(getMultipleComponents(fields, components))
     }
-
-    resp.send(getMultipleComponents(fields, components))
 });
+
 
 app.get('/*', function(req, resp){
     resp.status(404);
@@ -197,16 +137,16 @@ app.get('/*', function(req, resp){
 
 
 function parseField(key, value) {
-    const requiredValueFields = ["name"]; //fields that cannot be empty
-    const requiredDisplayFields = ["platforms", "genres"] //fields that must be displayed even if empy
+    const requiredUserInputFields = ["name"]; //fields that cannot be empty; require user input
     const multiFields = ["platforms", "genres"];
 
+    const requiresValue = findComponent(fields, "id", key).required;
 
-    if (value === "" || typeof(value) === "undefined") {
-        if (requiredDisplayFields.includes(key)) {
-            return "None Set"
-        } else return !requiredValueFields.includes(key); //return true if valid empty, false if invalid empty
-        // if the key is required but absent, nothing is returned as the parsed value is undefined
+    if ((value === "" || typeof(value) === "undefined") && requiresValue) {
+        if (!requiredUserInputFields.includes(key)) {
+            return  "None Set"; // if field requires value but not user input, give it a value
+        }
+        // if field requires user input but none given, nothing is returned as the parsed value is undefined
     } else if (multiFields.includes(key)) {
         return value.split(", ")
     } else {
@@ -217,7 +157,8 @@ function parseField(key, value) {
 
 //POST method to add new
 //TODO: Add authentication
-app.post('/add', async function(req, resp){
+app.post('/games/add', async function(req, resp){
+    //console.log(data_list)
     const fields = req.body;
 
     let validRequest = true;
@@ -227,10 +168,10 @@ app.post('/add', async function(req, resp){
 
     for (let i = 0; i < fields.length; i++) {
         parsedField = parseField(fields[i].id, fields[i].value);
-        if (parsedField === false) {
+        if (typeof(parsedField) === "undefined") {
             validRequest = false;
             invalidFields.push(fields[i].label);
-        } else if (!(parsedField === true)) {
+        } else {
             entry[fields[i].id] = parsedField;
         }
     }

@@ -61,21 +61,21 @@ function getComponent(object, component) {
     return(result)
 }
 
-async function stringifyEntry(entry) {
+async function stringifyEntry(entry, entity) {
     let s = "";
-    //let fieldInfo;
     let fieldInfo = await genericGet({
-        fetchURL: `http://127.0.0.1:8090/getFieldInfo?components=html,label`,
+        fetchURL: `http://127.0.0.1:8090/${entity}/getFieldInfo?components=html,label,required`,
         responseOkFunction: async function(response) {
             return await response.json();
         }
     });
 
+
     let fieldValueString;
     let fieldValue;
     for (let i = 0; i < fieldInfo.length; i++) {
         fieldValue = entry[fieldInfo[i].id];
-        if (typeof(fieldValue) !== "undefined") {
+        if (!(typeof(fieldValue) === "undefined" || fieldValue === "")) {
             if (Array.isArray(fieldValue)) {
                 fieldValueString = fieldValue.join(", ");
             } else {
@@ -91,7 +91,7 @@ async function stringifyEntry(entry) {
 
 
 
-function defineLinks(data_list) {
+function defineLinks(data_list, entity) {
     const id_list = getComponent(data_list, "id");
 
     for (let i = 0; i < id_list.length; i++) {
@@ -101,10 +101,10 @@ function defineLinks(data_list) {
             const id_selected = event.target.id.replace("entry_", "");
 
             genericGet({
-                fetchURL: `http://127.0.0.1:8090/entry?id=${id_selected}`,
+                fetchURL: `http://127.0.0.1:8090/${entity}/entry?id=${id_selected}`,
                 responseOkFunction: async function(response){
                     const entry = await response.json();
-                    let entryHTML = await stringifyEntry(entry);
+                    let entryHTML = await stringifyEntry(entry, entity);
                     document.getElementById('content').innerHTML = entryHTML;
                 }
             });
@@ -132,9 +132,9 @@ async function genericGet(params) {
     }
 }
 
-async function search(key) {
+async function search(key, entity) {
     genericGet({
-        fetchURL: `http://127.0.0.1:8090/search?key=${key}`,
+        fetchURL: `http://127.0.0.1:8090/${entity}/search?key=${key}`,
         //fetchURL: `http://thiswebsitedoesntexist.xctfrvgybuhyinjmkljnhbgvfctr`,
 
         responseOkFunction: async function(response) {
@@ -144,35 +144,35 @@ async function search(key) {
             let data_list = body.data;
 
             for (let i = 0; i < data_list.length; i++){
-                s += `<a href ="http://127.0.0.1:8090/entry?id=${data_list[i].id}" id="entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
+                s += `<a href ="http://127.0.0.1:8090/${entity}/entry?id=${data_list[i].id}" id="entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
             }
             document.getElementById('content').innerHTML = s;
-            defineLinks(data_list);
+            defineLinks(data_list, entity);
         }
 
     });
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
-    search("");
-        const searchForm = document.getElementById("searchForm");
-        searchForm.addEventListener('submit', async function (event) {
+    search("", "games");
+    const searchForm = document.getElementById("searchForm");
+    searchForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         const key = searchForm[0].value;
-        search(key)
+        search(key, "games")
     });
 
     const getFormButton = document.getElementById("getFormButton");
 
     getFormButton.addEventListener("click", async function (event) {
         genericGet({
-            fetchURL: `http://127.0.0.1:8090/getFieldInfo?components=label`,
+            fetchURL: `http://127.0.0.1:8090/games/getFieldInfo?components=label`,
             responseOkFunction: async function(response){
-                let fieldsInfo = await response.json();
+                let fieldInfo = await response.json();
 
                 let formString = `<form id="addForm">`;
-                for (let i = 0; i < fieldsInfo.length; i++) {
-                    formString += `<input id="${fieldsInfo[i].id}" name="${fieldsInfo[i].id}" placeholder="${fieldsInfo[i].label}"><br>`;
+                for (let i = 0; i < fieldInfo.length; i++) {
+                    formString += `<input id="${fieldInfo[i].id}" name="${fieldInfo[i].id}" placeholder="${fieldInfo[i].label}"><br>`;
                 }
                 formString += `<input id="addButton" type="submit" value="Add Entry">`;
                 formString += `</form>`;
@@ -184,19 +184,19 @@ document.addEventListener('DOMContentLoaded', async function() {
 
                     let formData = [];
 
-                    for (let i = 0; i < fieldsInfo.length; i++) {
+                    for (let i = 0; i < fieldInfo.length; i++) {
                         formData.push({
-                            id: fieldsInfo[i].id,
-                            label: fieldsInfo[i].label,
-                            value: document.getElementById(fieldsInfo[i].id).value
+                            id: fieldInfo[i].id,
+                            label: fieldInfo[i].label,
+                            value: document.getElementById(fieldInfo[i].id).value
                         });
-
                     }
 
+                    console.log(formData)
                     //console.log(formData);
 
                     try {
-                        let response = await fetch("http://127.0.0.1:8090/add",{
+                        let response = await fetch("http://127.0.0.1:8090/games/add",{
                             method: "POST",
                             //Content-type needs to be correct:
                             headers:{'Content-Type': 'application/json'},
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                             const resp = JSON.parse(body);
 
                             let s = `Entry received:<br>`;
-                            s += await stringifyEntry(resp);
+                            s += await stringifyEntry(resp, "games");
                             //console.log(s);
 
                             document.getElementById('content').innerHTML = s;
