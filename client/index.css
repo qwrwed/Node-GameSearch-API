@@ -6,7 +6,6 @@
     position:fixed;
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr;
     overflow: auto;
 }
 
@@ -21,6 +20,9 @@
 
 /* FULL WIDTH ONLY */
 @media only screen and (min-width: 600px) {
+    .wrapper{
+        grid-template-rows: auto 1fr;
+    }
 
     .titlebar {
         grid-template-columns: auto auto auto;
@@ -64,6 +66,10 @@
 
 /* NARROW WIDTH ONLY */
 @media not screen and (min-width: 600px) {
+
+    .wrapper{
+        grid-template-rows: auto auto 1fr;
+    }
 
     .titlebar {
         padding-top: 8px;
@@ -142,7 +148,7 @@
 
 .sidebar {
     background-color: #CCCCCC;
-    height: 100%;
+    height: auto;
     white-space: nowrap;
 }
 
@@ -158,5 +164,6 @@
 .content {
     padding: 10px;
     min-height: 200px;
+    height:auto;
     overflow:auto;
 }
