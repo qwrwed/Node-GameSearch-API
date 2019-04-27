@@ -1,13 +1,30 @@
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+
+//JSON web tokens, used for authentication
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('client'));
 
-const utilities = require("./utilities");
-const { getSingleComponent, getMultipleComponents, findComponent, fields } = utilities;
+//auth0 authentication
+const checkJwt = jwt({
+    secret: jwksRsa.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: 'https://dev-mvcjlscb.eu.auth0.com/.well-known/jwks.json'
+    }),
+    audience: 'http://127.0.0.1:8090',
+    issuer: 'https://dev-mvcjlscb.eu.auth0.com/',
+    algorithms: [ 'RS256' ],
+});
 
+const { getSingleComponent, getMultipleComponents, findComponent, fields } = require("./utilities");
 
 const fetch_initial_data = require("./fetch_initial_data");
 
@@ -157,8 +174,7 @@ function parseField(key, value) {
 
 //POST method to add new
 //TODO: Add authentication
-app.post('/games/add', async function(req, resp){
-    //console.log(data_list)
+app.post('/games/add', checkJwt, async function(req, resp){
     const fields = req.body;
 
     let validRequest = true;

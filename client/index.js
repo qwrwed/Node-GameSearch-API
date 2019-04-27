@@ -154,6 +154,15 @@ async function search(key, entity) {
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
+    const webAuth = new auth0.WebAuth({
+        clientID: 'jwjvlApldvpaiQq1BQRwYR9Fahj7IqcY',
+        domain: 'dev-mvcjlscb.eu.auth0.com',
+        responseType: 'token id_token',
+        audience: 'http://127.0.0.1:8090',
+        redirectUri: 'http://127.0.0.1:8090',
+        scope: 'openid profile',
+    });
+
     search("", "games");
     const searchForm = document.getElementById("searchForm");
     searchForm.addEventListener('submit', async function (event) {
@@ -162,9 +171,34 @@ document.addEventListener('DOMContentLoaded', async function() {
         search(key, "games")
     });
 
+    let accessToken;
+    let idToken;
+
+    function getAccessToken(){
+        webAuth.parseHash(function(err, authResult) {
+            if (authResult && authResult.accessToken && authResult.idToken) {
+                accessToken = authResult.accessToken;
+                idToken = authResult.idToken;
+            }
+        });
+        return accessToken
+    }
+
+    const loginButton = document.getElementById("loginButton");
+    loginButton.addEventListener("click", async function(){
+        if (window.location.hash === '') {
+            webAuth.authorize();
+        } else {
+            webAuth.logout({
+                returnTo: 'http://127.0.0.1:8090',
+                client_id: 'jwjvlApldvpaiQq1BQRwYR9Fahj7IqcY'
+            });
+        }
+    });
     const getFormButton = document.getElementById("getFormButton");
 
     getFormButton.addEventListener("click", async function (event) {
+        accessToken = getAccessToken();
         genericGet({
             fetchURL: `http://127.0.0.1:8090/games/getFieldInfo?components=label`,
             responseOkFunction: async function(response){
@@ -192,14 +226,14 @@ document.addEventListener('DOMContentLoaded', async function() {
                         });
                     }
 
-                    console.log(formData)
-                    //console.log(formData);
-
                     try {
                         let response = await fetch("http://127.0.0.1:8090/games/add",{
                             method: "POST",
                             //Content-type needs to be correct:
-                            headers:{'Content-Type': 'application/json'},
+                            headers:{
+                                'Content-Type': 'application/json',
+                                Authorization: 'Bearer ' + accessToken
+                            },
                             body: JSON.stringify(formData)
                         });
                         if (response.ok) {
