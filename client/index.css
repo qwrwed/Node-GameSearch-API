@@ -5,26 +5,105 @@
     height: 100%;
     position:fixed;
     display: grid;
-    grid-template-rows: 60px auto;
     grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    overflow: auto;
 }
 
 .titlebar {
     background-color: #00007F;
-    grid-area: 1 / 1 / 2 / 4; /* row-start, column start, row-end, column-end */
     display: grid;
-    grid-template-rows: auto auto auto;
-    grid-template-columns: auto auto auto;
-    padding: 0 20px 0 ;
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
+    justify-items: center;
+    text-align: center;
 }
+
+/* FULL WIDTH ONLY */
+@media only screen and (min-width: 600px) {
+
+    .titlebar {
+        grid-template-columns: auto auto auto;
+        grid-gap: 16px;
+        padding: 8px;
+    }
+
+    .titlebar .sidebarToggle {
+        display: flex;
+        justify-self: start;
+    }
+
+    .sidebarToggle.sidebarOn {
+        transform : rotate(180deg);
+    }
+
+    .sidebarToggle.sidebarOff {
+        transform : rotate(0deg);
+    }
+
+    .sidebar {
+        padding: 10px;
+        transition: 0.5s;
+    }
+
+    .sidebar.sidebarOn {
+        width: 220px;
+    }
+    .sidebar.sidebarOff {
+        width: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .sidebar {
+        grid-row: 2 / 3;
+        grid-column: 1 / 2;
+    }
+
+}
+
+/* NARROW WIDTH ONLY */
+@media not screen and (min-width: 600px) {
+
+    .titlebar {
+        padding-top: 8px;
+    }
+
+    .titlebar .sidebarToggle {
+        order: 3;
+    }
+
+    .sidebarToggle.sidebarOn {
+        transform : rotate(270deg);
+    }
+
+    .sidebarToggle.sidebarOff {
+        transform : rotate(90deg);
+    }
+
+    .sidebar {
+        grid-row: 2 / 3;
+        grid-column: 1 / 3;
+    }
+
+    .sidebar.sidebarOff {
+        height:0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .content {
+        grid-row: 3 / 4;
+        grid-column: 1 / 3;
+    }
+}
+
+/* Note: Both media queries are required as setting either as the default state will give attributes that...
+   cannot be restored to the null/undefined value (order and grid-template-columns)*/
 
 .titlebar .sidebarToggle {
     color: #FFFFFF;
-    display:flex;
-    grid-row: 2 / 3;
-    grid-column: 1 / 4;
     align-self: center;
-    justify-self: start;
     font-size: 30px;
     background-color: transparent;
     border: 0;
@@ -39,8 +118,6 @@
 .titlebar .textContainer {
     color: #FFFFFF;
     display:flex;
-    grid-row: 2 / 3;
-    grid-column: 1 / 4;
     align-self: center;
     justify-self: center;
     font-size: 30px;
@@ -52,128 +129,34 @@
     border: 1px solid #000;
     border-radius: 4px;
     background-color: #FFFFFF;
-    grid-row: 2 / 3;
-    grid-column: 1 / 4;
     align-self: center;
-    justify-self: start;
-    transition: 0.5s;
+    justify-self: center;
 }
 
-.titlebar .searchContainer.sidebarOn {
-    transform: translate(160px);
-}
-
-.titlebar .searchContainer.sidebarOff {
-    transform: translate(50px);
-}
-
-.titlebar .searchContainer button, .titlebar .searchContainer input {
+.titlebar .searchContainer * {
     background-color: transparent;
     border: 0;
     outline: none;
 }
+
+
 .sidebar {
-    grid-row: 2 / 4;
-    grid-column: 1 / 2;
-    /*
-    display: grid;
-    grid-template-rows: 60px auto;*/
     background-color: #CCCCCC;
-    transition: 0.5s;
+    height: 100%;
     white-space: nowrap;
+}
+
+.sidebar.sidebarOff {
     overflow: hidden;
 }
 
 .sidebar input{
-
     width: 100%;
 }
-/*
-.sidebar > * {
-    grid-row: 1 / 4;
-}
-*/
 
-.sidebar.sidebarOn {
-    width: 160px;
-    padding: 10px;
-}
-
-.sidebar.sidebarOff {
-    width: 0;
-}
-
-.sidebarToggle.sidebarOn {
-    transform : rotate(180deg);
-}
-
-.sidebarToggle.sidebarOff {
-    transform : rotate(0deg);
-}
 
 .content {
-    grid-row: 2 / 4;
-    grid-column: 2 / 4;
     padding: 10px;
+    min-height: 200px;
     overflow:auto;
-}
-
-.sidebar_dep {
-    height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 160px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 0; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
-    background-color: #ccc;
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 50px;
-}
-
-/*tab styling*/
-.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    width: 100%;
-}
-
-.tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
-
-    /*
-    padding: 14px 16px;
-    */
-    width: 50%;
-}
-
-.tab button:hover {
-    background-color: #ddd;
-}
-
-.tab button.active {
-    background-color: #ccc;
-}
-
-.tabContent {
-    display: none;
-    /*
-    padding: 6px 12px;
-    width: 95%;
-    */
-
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid #ccc;
-    border-top: none;
-    width: 99%;
-}
-
-.tabContent * {
-    width: 100%;
 }
