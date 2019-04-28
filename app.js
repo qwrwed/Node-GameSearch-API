@@ -33,8 +33,18 @@ const { getSingleComponent, getMultipleComponents, findComponent, fields } = req
 async function initData(){
 
     // get unprocessed initial data from separate file
-    let data_json = await require("./fetch_initial_data")();
-    //saveJSONData("igdb_backup.json", data_json); //create backup
+    let data_json_games = await require("./fetch_initial_data")("games");
+    let data_json_platforms = [];
+    for (let i = 0; i < data_json_games.length; i++){
+        let platforms = data_json_games[i].platforms;
+        for (let j = 0; j < platforms.length; j++){
+            if (!data_json_platforms.some( elem => {
+                return JSON.stringify(platforms[j]) === JSON.stringify(elem)
+            })){
+                data_json_platforms.push(platforms[j]);
+            }
+        }
+    }
 
     let entry;
     let ratings = {
@@ -45,8 +55,8 @@ async function initData(){
         5: "18+",
         6: "Pending",
     };
-    for (let i = 0; i < data_json.length; i++){
-        entry = data_json[i];
+    for (let i = 0; i < data_json_games.length; i++){
+        entry = data_json_games[i];
         // parse and replace components of each entry where necessary
         if (typeof(entry.cover) !== "undefined"){
             entry.cover = `https://images.igdb.com/igdb/image/upload/t_cover_big/${entry.cover.image_id}.jpg`;
@@ -67,6 +77,11 @@ async function initData(){
 
         entry.user_submitted = false;
     }
+
+    let data_json = {
+        games: data_json_games,
+        platforms: data_json_platforms
+    };
     return(data_json);
 }
 
@@ -85,9 +100,10 @@ app.use(async function (req, res, next) {
 });
 
 //GET method to list/search
-app.get("/games/search", async function (req, resp) {
+app.get("/search", async function (req, resp) {
 
     let key = req.query.key;
+    let entity = req.query.entity;
     let info_full;
     let info_search = "";
     let entry, entryName;
@@ -97,8 +113,15 @@ app.get("/games/search", async function (req, resp) {
         key = "";
     }
 
-    for (let i = 0; i < await data_list.length; i++) {
-        entry = data_list[i];
+    if (typeof(entity) === "undefined") {
+        entity = "games";
+    }
+
+    let data_list_entity = await data_list[entity];
+
+
+    for (let i = 0; i < await data_list_entity.length; i++) {
+        entry = data_list_entity[i];
         entryName = entry.name;
         if (entryName.toLowerCase().includes(key.toLowerCase())) {
 
@@ -111,6 +134,7 @@ app.get("/games/search", async function (req, resp) {
             });
         }
     }
+
 
     if (key !== ""){
         info_search = ` for search "${key}"`;
@@ -131,21 +155,21 @@ app.get("/games/search", async function (req, resp) {
 });
 
 //GET method for individual details
-app.get("/games/entry", async function (req, resp){
+app.get("/entry", async function (req, resp){
     //Response provided as JSON
-    resp.send(data_list[req.query.id]);
+    resp.send(data_list[req.query.entity][req.query.id]);
 });
 
 
-app.get("/games/getFieldInfo", function(req ,resp){
-    if (typeof(req.query) === "undefined") {
-        resp.send(fields);
+app.get("/getFieldInfo", function(req ,resp){
+    if (typeof(req.query.components) === "undefined") {
+        resp.send(fields[req.query.entity]);
     } else {
         let components = req.query.components.split(",");
         if (!components.includes("id")) {
             components.unshift("id");
         }
-        resp.send(getMultipleComponents(fields, components));
+        resp.send(getMultipleComponents(fields[req.query.entity], components));
     }
 });
 
@@ -157,11 +181,11 @@ app.get("/*", function(req, resp){
 });
 
 
-function parseField(key, value) {
+function parseField(key, value, entity) {
     const requiredUserInputFields = ["name"]; //fields that cannot be empty; require user input
     const multiFields = ["platforms", "genres"];
 
-    const requiresValue = findComponent(fields, "id", key).required;
+    const requiresValue = findComponent(fields[entity], "id", key).required;
 
     if ((value === "" || typeof(value) === "undefined") && requiresValue) {
         if (!requiredUserInputFields.includes(key)) {
@@ -177,28 +201,29 @@ function parseField(key, value) {
 }
 
 //POST method to add new
-//TODO: Add authentication
-app.post("/games/add", checkJwt, async function(req, resp){
-    const fields = req.body;
+app.post("/add", checkJwt, async function(req, resp){
+    const input = req.body;
+    const entity = req.headers.entity;
 
     let validRequest = true;
     let invalidFields = [];
     let entry = {};
     let parsedField;
 
-    for (let i = 0; i < fields.length; i++) {
-        parsedField = parseField(fields[i].id, fields[i].value);
+    for (let i = 0; i < input.length; i++) {
+        parsedField = parseField(input[i].id, input[i].value, entity);
         if (typeof(parsedField) === "undefined") {
             validRequest = false;
-            invalidFields.push(fields[i].label);
+            invalidFields.push(input[i].label);
         } else {
-            entry[fields[i].id] = parsedField;
+            entry[input[i].id] = parsedField;
         }
     }
 
     if (validRequest) {
+        console.log(entry)
         entry.user_submitted = true;
-        data_list.unshift(entry);
+        data_list[entity].unshift(entry);
         //Response provided as JSON
         resp.send(entry);
     } else {

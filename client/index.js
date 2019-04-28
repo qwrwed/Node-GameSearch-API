@@ -76,7 +76,7 @@ async function stringifyEntry(entry, entity) {
     // contains ids for getting information from JSON entry
     // also contains HTML strings pre-formatted according to the data type (header, image, etc.)
     let fieldInfo = await genericGet({
-        fetchURL: `http://127.0.0.1:8090/${entity}/getFieldInfo?components=html,label,required`,
+        fetchURL: `http://127.0.0.1:8090/getFieldInfo?entity=${entity}`,
         responseOkFunction: async function(response) {
             return await response.json();
         }
@@ -85,6 +85,9 @@ async function stringifyEntry(entry, entity) {
     let fieldValue; // raw data (generally string or array)
     let fieldValueString; // data converted to string form
 
+    let RETypeList = [];
+    let REData = {};
+
     // iterate through each field
     for (let i = 0; i < fieldInfo.length; i++) {
         // get the raw data
@@ -92,7 +95,28 @@ async function stringifyEntry(entry, entity) {
 
         // if the field's data isn't empty, add it to HTML string; otherwise, skip to next field
         if (!(typeof(fieldValue) === "undefined" || fieldValue === "")) {
+            if (fieldInfo[i].isEntity === true) {
+                //RE stands for "referenced entity"
+                const REType = fieldInfo[i].id;
+                RETypeList.push(REType); // will be returned for use in defineLinks after string is put on page
 
+                let REName, REInstance, REID;
+                let REList = (await getList(REType)).data;
+                let REHTML = [];
+                REData[REType] = [];
+
+
+                for (let j = 0; j < fieldValue.length; j++) {
+                    REName = fieldValue[j];
+
+                    REInstance = REList.find(element => element.name === REName);
+
+                    REID = REInstance.id;
+                    REHTML.push(`<a href ="http://127.0.0.1:8090/entry?entity=${REType}&id=${REID}" id="${REType}_entry_${REID}" >${REName}</a>`);
+                    REData[REType].push(REInstance);
+                }
+                fieldValue = REHTML;
+            }
             // convert array to string if necessary
             if (Array.isArray(fieldValue)) {
                 fieldValueString = fieldValue.join(", ");
@@ -105,7 +129,7 @@ async function stringifyEntry(entry, entity) {
             s += "\n"; // for readability when using console.log(s)
         }
     }
-    return(s);
+    return({"string": s, "REData": REData});
 }
 
 // utility function: general-purpose GET function to avoid repetition of code
@@ -137,25 +161,52 @@ function defineLinks(data_list, entity) {
     for (let i = 0; i < id_list.length; i++) {
 
         // register the click event listener for the current element id
-        document.getElementById(`entry_${id_list[i]}`).addEventListener("click", async function (event) {
+        document.getElementById(`${entity}_entry_${id_list[i]}`).addEventListener("click", async function (event) {
             event.preventDefault(); // do not redirect or refresh
 
             // get the id number from the full, descriptive element id (e.g. "32" from "entry_32")
-            const id_selected = event.target.id.replace("entry_", "");
+            const id_selected = event.target.id.replace(`${entity}_entry_`, "");
 
-            // if clicked, perform a GET request, format the response into a HTML string, and put it into the "content" div
-            genericGet({
-                fetchURL: `http://127.0.0.1:8090/${entity}/entry?id=${id_selected}`,
+            // when link is clicked, get the entry as JSON
+            const entry = await genericGet({
+                fetchURL: `http://127.0.0.1:8090/entry?entity=${entity}&id=${id_selected}`,
                 responseOkFunction: async function(response){
-                    const entry = await response.json();
-                    document.getElementById("content").innerHTML = await stringifyEntry(entry, entity);
-                    document.getElementById("returnDiv").style.display = "block";
+                    return await response.json();
                 }
             });
+
+            // from this JSON, get HTML string, and data about any referenced entities
+            const {string, REData} = await stringifyEntry(entry, entity);
+
+            // inject the entry HTML string into the page
+            document.getElementById("content").innerHTML = string;
+
+            // show the "Back" button
+            document.getElementById("returnDiv").style.display = "block";
+
+            // for any referenced entities (e.g. list of platforms for a specific game), define those links too
+            for (let referencedEntity in REData) {
+                if (REData.hasOwnProperty(referencedEntity)) {
+                    defineLinks(REData[referencedEntity], referencedEntity)
+                }
+            }
+
+
         });
     }
 }
 
+async function getList(entity, key){
+    if (typeof(key) === "undefined") {
+        key = ""
+    }
+    return await genericGet({
+        fetchURL: `http://127.0.0.1:8090/search?entity=${entity}&key=${key}`,
+        responseOkFunction: async function(response) {
+            return await response.json();
+        }
+    });
+}
 async function search(key, entity) {
     const returnDiv = document.getElementById("returnDiv");
     if (key !== "") {
@@ -166,21 +217,15 @@ async function search(key, entity) {
     // when search function is run, perform a GET request with search key as query
     // then, use HTML to construct a list of links from the response and put it into the "content" <div>
     // finally, run defineLinks() to define the behaviour for each link when clicked
-    genericGet({
-        fetchURL: `http://127.0.0.1:8090/${entity}/search?key=${key}`,
-        responseOkFunction: async function(response) {
-            const body = await response.json();
+    const body = await getList(entity, key);
+    let s = body.text;
+    let data_list = body.data;
 
-            let s = body.text;
-            let data_list = body.data;
-
-            for (let i = 0; i < data_list.length; i++){
-                s += `<a href ="http://127.0.0.1:8090/${entity}/entry?id=${data_list[i].id}" id="entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
-            }
-            document.getElementById("content").innerHTML = s;
-            defineLinks(data_list, entity);
-        }
-    });
+    for (let i = 0; i < data_list.length; i++){
+        s += `<a href ="http://127.0.0.1:8090/entity=${entity}&entry?id=${data_list[i].id}" id="${entity}_entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
+    }
+    document.getElementById("content").innerHTML = s;
+    defineLinks(data_list, entity);
 }
 
 // webAuth object for auth0 authentication
@@ -214,6 +259,7 @@ function getAccessToken(){
 document.addEventListener("DOMContentLoaded",  async function() {
     // get token on load (if it exists)
     accessToken = await getAccessToken();
+    let entity = "games";
 
     // define DOM element references
     const searchForm = document.getElementById("searchForm");
@@ -222,17 +268,17 @@ document.addEventListener("DOMContentLoaded",  async function() {
     const returnLink = document.getElementById("returnLink");
     returnLink.addEventListener("click", function(event){
         event.preventDefault();   // do not redirect or refresh
-        search("", "games");
+        search("", entity);
     });
 
 
     // perform initial search to populate page on load
-    search("", "games");
+    search("", entity);
 
     // when search query is submitted, search again using form value as key
     searchForm.addEventListener("submit", async function (event) {
         event.preventDefault();   // do not redirect or refresh
-        search(searchForm[0].value, "games");
+        search(searchForm[0].value, entity);
     });
 
     // determine button attributes and actions based on whether user is logged in (has token) or not
@@ -264,19 +310,19 @@ document.addEventListener("DOMContentLoaded",  async function() {
     getFormButton.addEventListener("click", async function () {
         // get information about fields to construct HTML form string with
         let fieldInfo = await genericGet({
-            fetchURL: "http://127.0.0.1:8090/games/getFieldInfo?components=label",
+            fetchURL: `http://127.0.0.1:8090/getFieldInfo?entity=${entity}&components=label`,
             responseOkFunction: async function(response){
                 return response.json();
             }
         });
 
         // construct HTML form string
-        let formString = "<form id=\"addForm\">";
+        let formString = `<form id="addForm">`;
         for (let i = 0; i < fieldInfo.length; i++) {
             formString += `<input id="${fieldInfo[i].id}" name="${fieldInfo[i].id}" placeholder="${fieldInfo[i].label}"><br>`;
         }
-        formString += "<input id=\"addButton\" type=\"submit\" value=\"Submit Entry\">";
-        formString += "</form>";
+        formString += `<input id="addButton" type="submit" value="Submit Entry">`;
+        formString += `</form>`;
 
         // display constructed HTML form
         document.getElementById("sidebarForm").innerHTML = formString;
@@ -299,25 +345,39 @@ document.addEventListener("DOMContentLoaded",  async function() {
             // try to POST, alerting/printing any caught error
             try {
                 // POST to server with authentication token
-                let response = await fetch("http://127.0.0.1:8090/games/add",{
+                let response = await fetch("http://127.0.0.1:8090/add",{
                     method: "POST",
                     //Content-type needs to be correct:
                     headers:{
                         "Content-Type": "application/json",
-                        Authorization: "Bearer " + accessToken
+                        Authorization: "Bearer " + accessToken,
+                        entity: entity
                     },
                     body: JSON.stringify(formData)
                 });
 
                 if (response.ok) {
-                    // display submitted entry (returned from the server and formatted)
+                    //get submitted entry back from server as JSON
                     const resp = await response.json();
 
-                    let s = "Entry received:<br>";
-                    s += await stringifyEntry(resp, "games");
+                    // from this JSON, get HTML string, and data about any referenced entities
+                    const {string, REData} = await stringifyEntry(resp, entity);
 
+                    let s = "Entry received:<br>";
+                    s += string;
+
+                    // inject the entry HTML string into the page
                     document.getElementById("content").innerHTML = s;
+
+                    // show the "Back" button
                     document.getElementById("returnDiv").style.display = "block";
+
+                    // for any referenced entities (e.g. list of platforms for a specific game), define those links too
+                    for (let referencedEntity in REData) {
+                        if (REData.hasOwnProperty(referencedEntity)) {
+                            defineLinks(REData[referencedEntity], referencedEntity)
+                        }
+                    }
 
                     // clear the form
                     addForm.reset();

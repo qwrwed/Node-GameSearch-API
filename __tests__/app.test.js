@@ -2,11 +2,11 @@
 "use strict";
 
 const request = require("supertest");
-const app = require("./app");
+const app = require("../app");
 
-jest.mock("./fetch_initial_data");
+jest.mock("../fetch_initial_data");
 
-const { fields } = require("./utilities");
+const { fields } = require("../utilities");
 
 function checkEntryDetails(res){
     const jContent = res.body;
