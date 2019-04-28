@@ -6,9 +6,9 @@ module.exports = {
         //get array containing, for all elements in object array, only the specified component's value
         let result = [];
         for (let i = 0; i < objectArray.length; i++) {
-            result.push(objectArray[i][component])
+            result.push(objectArray[i][component]);
         }
-        return(result)
+        return(result);
     },
 
     getMultipleComponents: function (objectArray, componentList) {
@@ -21,13 +21,13 @@ module.exports = {
             }
             result.push(element);
         }
-        return(result)
+        return(result);
     },
 
     findComponent: function (objectArray, key, value) {
         // return first element in objectArray where key-value pair matches the one provided
         if (typeof(objectArray) !== "undefined") {
-            return (objectArray.find(x => x[key] === value))
+            return (objectArray.find(x => x[key] === value));
         }
     },
 
@@ -38,7 +38,7 @@ module.exports = {
                 console.error(err);
                 return;
             }
-            console.log(`File ${filename} has been created`);
+            console.log(`File ${fileName} has been created`);
         });
     },
 
@@ -51,13 +51,13 @@ module.exports = {
         - label: Field name as it should be shown to the user (e.g. with capitalisation).
         - html: HTML content associated with the field to inject into the page.
         */
-        {id: "name", query: "name", label: "Name", html: `<h1>$</h1>`, required: true},
-        {id: "platforms", query: "platforms.*", label: "Platforms", html: `Platforms: $<br>`, required: true},
-        {id: "genres", query: "genres.*", label: "Genres", html: `Genres: $<br>`, required: true},
-        {id: "age_rating", query: "age_ratings.*", label: "PEGI Age Rating", html: `PEGI Age Rating: $<br>`, required: true},
-        {id: "cover", query: "cover.*", label: "Image URL", html: `<img src=$><br>`, required: false},
-        {id: "summary", query: "summary", label: "Summary", html: `Summary: $<br>`, required: false},
-        {id: "storyline", query: "storyline", label: "Plot", html: `Plot: $<br>`, required: false},
+        {id: "name", query: "name", label: "Name", html: "<h1>$</h1>", required: true},
+        {id: "platforms", query: "platforms.*", label: "Platforms", html: "Platforms: $<br>", required: true},
+        {id: "genres", query: "genres.*", label: "Genres", html: "Genres: $<br>", required: true},
+        {id: "age_rating", query: "age_ratings.*", label: "PEGI Age Rating", html: "PEGI Age Rating: $<br>", required: true},
+        {id: "cover", query: "cover.*", label: "Image URL", html: "<img src=$><br>", required: false},
+        {id: "summary", query: "summary", label: "Summary", html: "Summary: $<br>", required: false},
+        {id: "storyline", query: "storyline", label: "Plot", html: "Plot: $<br>", required: false},
     ]
 };
 

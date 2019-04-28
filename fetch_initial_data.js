@@ -30,7 +30,7 @@ module.exports = async function (){
         if (response.ok) {
             data_json = await response.json();
         } else {
-            throw new Error('404 Remote Page Not Found')
+            throw new Error("404 Remote Page Not Found");
         }
     } catch(e) {
         console.log("\nError: " + e.message);
@@ -44,5 +44,5 @@ module.exports = async function (){
         }
 
     }
-    return(data_json)
+    return(data_json);
 };

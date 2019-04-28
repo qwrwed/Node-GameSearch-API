@@ -4,6 +4,7 @@
   "description": "Website project for L1 Programming",
   "main": "server.js",
   "scripts": {
+    "pretest": "eslint .",
     "test": "jest",
     "start": "nodemon server.js"
   },
@@ -16,6 +17,7 @@
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
+    "eslint": "^5.16.0",
     "jest": "^24.7.1",
     "supertest": "^4.0.2"
   }

@@ -1,15 +1,15 @@
 
-const express = require('express');
+const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 //JSON web tokens, used for authentication
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('client'));
+app.use(express.static("client"));
 
 //auth0 authentication
 const checkJwt = jwt({
@@ -17,19 +17,23 @@ const checkJwt = jwt({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: 'https://dev-mvcjlscb.eu.auth0.com/.well-known/jwks.json'
+        jwksUri: "https://dev-mvcjlscb.eu.auth0.com/.well-known/jwks.json"
     }),
-    audience: 'http://127.0.0.1:8090',
-    issuer: 'https://dev-mvcjlscb.eu.auth0.com/',
-    algorithms: [ 'RS256' ],
+    audience: "http://127.0.0.1:8090",
+    issuer: "https://dev-mvcjlscb.eu.auth0.com/",
+    algorithms: [ "RS256" ],
 });
 
+// get utility functions from separate file
 const { getSingleComponent, getMultipleComponents, findComponent, fields } = require("./utilities");
 
-const fetch_initial_data = require("./fetch_initial_data");
 
+
+// process the initial data
 async function initData(){
-    let data_json = await fetch_initial_data();
+
+    // get unprocessed initial data from separate file
+    let data_json = await require("./fetch_initial_data")();
     //saveJSONData("igdb_backup.json", data_json); //create backup
 
     let entry;
@@ -48,22 +52,22 @@ async function initData(){
             entry.cover = `https://images.igdb.com/igdb/image/upload/t_cover_big/${entry.cover.image_id}.jpg`;
         }
         if (typeof(entry.genres) !== "undefined"){
-            entry.genres = getSingleComponent(entry.genres, "name")
+            entry.genres = getSingleComponent(entry.genres, "name");
         }
         if (typeof(entry.platforms) !== "undefined"){
-            entry.platforms = getSingleComponent(entry.platforms, "name")
+            entry.platforms = getSingleComponent(entry.platforms, "name");
         }
 
         let pegiRating = findComponent(entry.age_ratings, "category", 2);
         if (typeof(pegiRating) !== "undefined"){
             entry.age_rating = ratings[pegiRating.rating];
         } else {
-            entry.age_rating = "None Set"
+            entry.age_rating = "None Set";
         }
 
         entry.user_submitted = false;
     }
-    return(data_json)
+    return(data_json);
 }
 
 
@@ -77,15 +81,15 @@ let data_list = (async () =>{
 // Ensure promise containing data_list is resolved for any request
 app.use(async function (req, res, next) {
     data_list = await data_list;
-    next()
+    next();
 });
 
 //GET method to list/search
-app.get('/games/search', async function (req, resp) {
+app.get("/games/search", async function (req, resp) {
 
     let key = req.query.key;
     let info_full;
-    let info_search = '';
+    let info_search = "";
     let entry, entryName;
     let resp_list = [];
 
@@ -104,18 +108,18 @@ app.get('/games/search', async function (req, resp) {
             resp_list.push({
                 id: i,
                 name: entryName
-            })
+            });
         }
     }
 
     if (key !== ""){
-        info_search = ` for search "${key}"`
+        info_search = ` for search "${key}"`;
     }
 
     if (resp_list.length === 0) {
-        info_full = `No results found${info_search}.<br><br>`
+        info_full = `No results found${info_search}.<br><br>`;
     } else {
-        info_full = `Showing all results${info_search}:<br><br>`
+        info_full = `Showing all results${info_search}:<br><br>`;
     }
 
     //Response provided as JSON
@@ -127,29 +131,29 @@ app.get('/games/search', async function (req, resp) {
 });
 
 //GET method for individual details
-app.get('/games/entry', async function (req, resp){
+app.get("/games/entry", async function (req, resp){
     //Response provided as JSON
     resp.send(data_list[req.query.id]);
 });
 
 
-app.get('/games/getFieldInfo', function(req ,resp){
+app.get("/games/getFieldInfo", function(req ,resp){
     if (typeof(req.query) === "undefined") {
-        resp.send(fields)
+        resp.send(fields);
     } else {
         let components = req.query.components.split(",");
         if (!components.includes("id")) {
             components.unshift("id");
         }
-        resp.send(getMultipleComponents(fields, components))
+        resp.send(getMultipleComponents(fields, components));
     }
 });
 
 
-app.get('/*', function(req, resp){
+app.get("/*", function(req, resp){
     resp.status(404);
-    resp.statusMessage = 'The requested resource does not exist.';
-    resp.send()
+    resp.statusMessage = "The requested resource does not exist.";
+    resp.send();
 });
 
 
@@ -165,16 +169,16 @@ function parseField(key, value) {
         }
         // if field requires user input but none given, nothing is returned as the parsed value is undefined
     } else if (multiFields.includes(key)) {
-        return value.split(", ")
+        return value.split(", ");
     } else {
-        return value
+        return value;
     }
 
 }
 
 //POST method to add new
 //TODO: Add authentication
-app.post('/games/add', checkJwt, async function(req, resp){
+app.post("/games/add", checkJwt, async function(req, resp){
     const fields = req.body;
 
     let validRequest = true;

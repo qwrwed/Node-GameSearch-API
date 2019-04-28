@@ -3,7 +3,6 @@
 
 const request = require("supertest");
 const app = require("./app");
-const fetch = require('node-fetch');
 
 jest.mock("./fetch_initial_data");
 
@@ -17,7 +16,7 @@ function checkEntryDetails(res){
     for (let i = 0; i < fields.length; i++) {
         if (fields[i].required) {
             if (typeof(jContent[fields[i].id]) === "undefined"){
-                throw new Error(`Entry response does not contain essential field "${fields[i].id}."`)
+                throw new Error(`Entry response does not contain essential field "${fields[i].id}."`);
             }
         }
     }
@@ -29,8 +28,8 @@ describe("Test invalid GET", () => {
         return request(app)
             .get("/nonexistent_test_path")
             .expect(404)
-            .expect({})
-    })
+            .expect({});
+    });
 });
 
 

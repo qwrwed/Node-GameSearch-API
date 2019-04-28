@@ -126,8 +126,10 @@
     display:flex;
     align-self: center;
     justify-self: center;
+    font-family:"Arial Black", Gadget, Arial, sans-serif;
+    font-weight: 900;
     font-size: 30px;
-    font-family: "Arial Black", Gadget, sans-serif;
+
 }
 
 .titlebar .searchContainer {
@@ -160,6 +162,9 @@
     width: 100%;
 }
 
+.returnDiv {
+    padding: 10px;
+}
 
 .content {
     padding: 10px;

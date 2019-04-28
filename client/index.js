@@ -1,9 +1,10 @@
-
+"use strict";
 
 /*tab interactivity*/
+/*
 function openTab(event, tabName) {
     //create array of tab-content (div) elements
-    const tabContent = document.getElementsByClassName("tabContent")
+    const tabContent = document.getElementsByClassName("tabContent");
 
     //iterate through each tab-content element
     for (let i = 0; i < tabContent.length; i++) {
@@ -17,18 +18,21 @@ function openTab(event, tabName) {
     }
 
     //create array of tab-button (button) elements
-    const tabButtons = document.getElementsByClassName("tabButton")
+    const tabButtons = document.getElementsByClassName("tabButton");
 
     //iterate through each tab-button element
     for (let i = 0; i < tabButtons.length; i++) {
         //remove "active" designation from all tab-buttons
-        tabButtons[i].className = tabButtons[i].className.replace(" active", "")
+        tabButtons[i].className = tabButtons[i].className.replace(" active", "");
     }
 
     //add "active" designation to active tab-button
     event.currentTarget.className += " active";
 }
+ */
 
+
+/* exported toggleSidebar */
 //rename CSS elements
 function toggleSidebar() {
     // get moving elements and put in array
@@ -48,7 +52,7 @@ function toggleSidebar() {
     }
 
     // replace classnames of all moving objects as above
-    for (i = 0; i < movingElements.length; i++) {
+    for (let i = 0; i < movingElements.length; i++) {
         movingElements[i].className = movingElements[i].className.replace(searchValue, replaceValue);
     }
 }
@@ -58,9 +62,9 @@ function toggleSidebar() {
 function getComponent(object, component) {
     let result = [];
     for (let i = 0; i < object.length; i++) {
-        result.push(object[i][component])
+        result.push(object[i][component]);
     }
-    return(result)
+    return(result);
 }
 
 // utility function: apply HTML formatting to display a single entry data object to user
@@ -98,10 +102,10 @@ async function stringifyEntry(entry, entity) {
 
             // append the prebuilt string from the server (with the data inserted) to the HTML string
             s += fieldInfo[i].html.replace("$", fieldValueString);
-            s += "\n" // for readability when using console.log(s)
+            s += "\n"; // for readability when using console.log(s)
         }
     }
-    return(s)
+    return(s);
 }
 
 // utility function: general-purpose GET function to avoid repetition of code
@@ -109,7 +113,7 @@ async function genericGet(params) {
     try {
         const response = await fetch(params.fetchURL);
         if (response.ok) {
-            return params.responseOkFunction(response)
+            return params.responseOkFunction(response);
         } else {
             let err = new Error;
             err.message = `Error ${response.status}: ${response.statusText}`;
@@ -117,10 +121,10 @@ async function genericGet(params) {
         }
     } catch (e) {
         if (e.message === "NetworkError when attempting to fetch resource.") {
-            e.message = `Error: Could not connect to server.`;
+            e.message = "Error: Could not connect to server.";
             alert(e.message);
         }
-        alert(e.message)
+        alert(e.message);
     }
 }
 
@@ -144,14 +148,21 @@ function defineLinks(data_list, entity) {
                 fetchURL: `http://127.0.0.1:8090/${entity}/entry?id=${id_selected}`,
                 responseOkFunction: async function(response){
                     const entry = await response.json();
-                    document.getElementById('content').innerHTML = await stringifyEntry(entry, entity);
+                    document.getElementById("content").innerHTML = await stringifyEntry(entry, entity);
+                    document.getElementById("returnDiv").style.display = "block";
                 }
             });
-        })
+        });
     }
 }
 
 async function search(key, entity) {
+    const returnDiv = document.getElementById("returnDiv");
+    if (key !== "") {
+        returnDiv.style.display = "block";
+    } else {
+        returnDiv.style.display = "none";
+    }
     // when search function is run, perform a GET request with search key as query
     // then, use HTML to construct a list of links from the response and put it into the "content" <div>
     // finally, run defineLinks() to define the behaviour for each link when clicked
@@ -166,7 +177,7 @@ async function search(key, entity) {
             for (let i = 0; i < data_list.length; i++){
                 s += `<a href ="http://127.0.0.1:8090/${entity}/entry?id=${data_list[i].id}" id="entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
             }
-            document.getElementById('content').innerHTML = s;
+            document.getElementById("content").innerHTML = s;
             defineLinks(data_list, entity);
         }
     });
@@ -174,13 +185,13 @@ async function search(key, entity) {
 
 // webAuth object for auth0 authentication
 // does not contain any sensitive information, and so can be distributed in this file without compromising security
-const webAuth = new auth0.WebAuth({
-    clientID: 'jwjvlApldvpaiQq1BQRwYR9Fahj7IqcY',
-    domain: 'dev-mvcjlscb.eu.auth0.com',
-    responseType: 'token id_token',
-    audience: 'http://127.0.0.1:8090',
-    redirectUri: 'http://127.0.0.1:8090',
-    scope: 'openid profile',
+const webAuth = new auth0.WebAuth({ // eslint-disable-line
+    clientID: "jwjvlApldvpaiQq1BQRwYR9Fahj7IqcY",
+    domain: "dev-mvcjlscb.eu.auth0.com",
+    responseType: "token id_token",
+    audience: "http://127.0.0.1:8090",
+    redirectUri: "http://127.0.0.1:8090",
+    scope: "openid profile",
 });
 
 // initialise access token in main scope
@@ -188,75 +199,84 @@ let accessToken;
 
 // define function for determining access token
 function getAccessToken(){
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         webAuth.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
-                resolve(authResult.accessToken)
+                window.location.hash = "";
+                resolve(authResult.accessToken);
             } else {
                 resolve(false);
             }
-    });
-})}
+        });
+    });}
 
 // set up DOM interactivity when fully loaded
-document.addEventListener('DOMContentLoaded',  async function() {
+document.addEventListener("DOMContentLoaded",  async function() {
+    // get token on load (if it exists)
+    accessToken = await getAccessToken();
 
     // define DOM element references
     const searchForm = document.getElementById("searchForm");
     const loginButton = document.getElementById("loginButton");
     const getFormButton = document.getElementById("getFormButton");
+    const returnLink = document.getElementById("returnLink");
+    returnLink.addEventListener("click", function(event){
+        event.preventDefault();   // do not redirect or refresh
+        search("", "games");
+    });
+
 
     // perform initial search to populate page on load
     search("", "games");
 
     // when search query is submitted, search again using form value as key
-    searchForm.addEventListener('submit', async function (event) {
+    searchForm.addEventListener("submit", async function (event) {
         event.preventDefault();   // do not redirect or refresh
         search(searchForm[0].value, "games");
     });
 
     // determine button attributes and actions based on whether user is logged in (has token) or not
     let logInOutFunction; // function to run when user clicks login/logout
-    accessToken = await getAccessToken();
+
     if (accessToken) {
         loginButton.value = "Logout";
         getFormButton.value = "Add Entry";
         getFormButton.disabled = false;
         logInOutFunction = function(){
             webAuth.logout({
-                returnTo: 'http://127.0.0.1:8090',
-                client_id: 'jwjvlApldvpaiQq1BQRwYR9Fahj7IqcY'
+                returnTo: "http://127.0.0.1:8090",
+                client_id: "jwjvlApldvpaiQq1BQRwYR9Fahj7IqcY"
             });
-        }
+        };
     } else {
         loginButton.value = "Login";
         getFormButton.value = "Add Entry (requires login)";
         getFormButton.disabled = true;
         logInOutFunction = function(){
             webAuth.authorize();
-        }
+        };
     }
 
     // log in or out, depending on presence of accessToken and corresponding result above
     loginButton.addEventListener("click",  logInOutFunction);
 
     // listen for user's request for the entry form
-    getFormButton.addEventListener("click", async function (event) {
+    getFormButton.addEventListener("click", async function () {
         // get information about fields to construct HTML form string with
         let fieldInfo = await genericGet({
-            fetchURL: `http://127.0.0.1:8090/games/getFieldInfo?components=label`,
+            fetchURL: "http://127.0.0.1:8090/games/getFieldInfo?components=label",
             responseOkFunction: async function(response){
                 return response.json();
             }
         });
 
         // construct HTML form string
-        let formString = `<form id="addForm">`;
+        let formString = "<form id=\"addForm\">";
         for (let i = 0; i < fieldInfo.length; i++) {
             formString += `<input id="${fieldInfo[i].id}" name="${fieldInfo[i].id}" placeholder="${fieldInfo[i].label}"><br>`;
         }
-        formString += `<input id="addButton" type="submit" value="Submit Entry">`;
-        formString += `</form>`;
+        formString += "<input id=\"addButton\" type=\"submit\" value=\"Submit Entry\">";
+        formString += "</form>";
 
         // display constructed HTML form
         document.getElementById("sidebarForm").innerHTML = formString;
@@ -283,8 +303,8 @@ document.addEventListener('DOMContentLoaded',  async function() {
                     method: "POST",
                     //Content-type needs to be correct:
                     headers:{
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer ' + accessToken
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + accessToken
                     },
                     body: JSON.stringify(formData)
                 });
@@ -293,18 +313,18 @@ document.addEventListener('DOMContentLoaded',  async function() {
                     // display submitted entry (returned from the server and formatted)
                     const resp = await response.json();
 
-                    let s = `Entry received:<br>`;
+                    let s = "Entry received:<br>";
                     s += await stringifyEntry(resp, "games");
 
-                    document.getElementById('content').innerHTML = s;
+                    document.getElementById("content").innerHTML = s;
+                    document.getElementById("returnDiv").style.display = "block";
 
                     // clear the form
                     addForm.reset();
                 } else {
-                    throw new Error(response.status + " " + response.statusText)
+                    throw new Error(response.status + " " + response.statusText);
                 }
             } catch (e) {
-                console.log(e);
                 alert(e);
             }
         });
