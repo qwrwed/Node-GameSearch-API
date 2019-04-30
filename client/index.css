@@ -16,7 +16,6 @@
 
 nav {
     /*max-width: 1200px;*/
-    /*margin: 8px auto;*/
     background-color: #00007F;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -77,24 +76,27 @@ nav {
 }
 
 
-.nav-right > * {
-    margin: 0 20px 0 0;
-}
-
 .nav-right * {
     transition: background-color 0.2s;
 }
-.nav-right span {
-    padding: 8px 12px;
+
+.nav-right > * {
+    margin: 0 20px 0 0;
     font-weight: 100;
     font-size: 14px;
     background-color: #222222;
+    color: #FFFFFF;
     text-align: center;
     height: auto;
     border: 0;
-    border-radius: 2px;
-    color: #FFFFFF;
+    border-radius: 4px;
     width: auto;
+    min-width: 3rem;
+}
+
+.nav-right span {
+    padding: 8px 12px;
+
 }
 
 .nav-right span:hover {
@@ -103,22 +105,12 @@ nav {
 }
 
 .nav-right .searchContainer {
-    display: inline-flex;
-    align-content: center;
-    align-items: center;
-    align-self: center;
-    padding: 8px 0;
-    font-weight: 100;
-    font-size: 14px;
-    height: auto;
-    border: 0;
-    border-radius: 2px;
-    background-color: #222222;
+    text-align: left;
+    padding: 8px 12px;
     position: relative;
 }
 
 .nav-right .searchContainer > *{
-
     height: 100%;
     border: 0;
     margin: -8px 0;
@@ -130,19 +122,18 @@ nav {
 .nav-right .searchContainer > input{
     width: 80%;
     font-weight: 100;
-    padding-left: 12px;
 
 }
 
 .nav-right .searchContainer > button{
     width: 20%;
-    min-width: 37px;
+
     position: absolute;
     right: 0;
     background-color: #FFFFFF07;
 }
 
-#nav-checkbox:checked ~ * .searchContainer button:hover {
+.searchContainer button:hover {
     background-color: #444444;
 }
 
@@ -162,7 +153,6 @@ nav {
 .sidebar {
     display:none;
     background-color: #BBBBBB;
-
 }
 
 .sidebar * {
@@ -193,7 +183,7 @@ nav {
     border: 1px solid #000000;
 }
 
-.main {
+.text {
     height: 1fr;
     overflow: auto;
     padding: 10px;
@@ -205,7 +195,7 @@ nav {
 
 }
 
-@media only screen and (max-width: 620px) {
+@media only screen and (max-width: 768px) {
     .wrapper {
         grid-template-columns: initial;
     }
@@ -220,6 +210,7 @@ nav {
 
     .burger-button:hover {
         color: #777777;
+        cursor: pointer;
     }
 
     .nav-left, .nav-right {
@@ -254,38 +245,18 @@ nav {
         margin: 8px 8px 8px;
     }
 
-    /*
-    #nav-checkbox:checked ~ * .searchContainer {
-        background-color: #F00;
-        margin: 16px 8px 16px;
-        padding: -80px;
-    }
-
-    .nav-right .searchContainer {
-        padding: 0 0 0 0;
-        background-color: #FFF !important;
-
-    }
-
-    .nav-right .searchContainer > *{
-    }
-
-    .nav-right .searchContainer > input{
-        background-color: #FF07;
-    }
-
-    .nav-right .searchContainer > button{
-        background-color: #0F0;
+    #nav-checkbox:checked ~ .nav-right > select {
+        min-height: 3rem;
     }
 
     #sidebar-checkbox:checked ~ .sidebar {
+        display: block;
         width: 100%;
+        height: 1fr;
+        overflow: unset;
     }
 
-    #sidebar-checkbox:checked ~ .main {
-        width: 100%;
-    }
-*/
+
 
 }
 
