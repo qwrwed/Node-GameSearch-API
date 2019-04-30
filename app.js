@@ -39,7 +39,7 @@ async function initData(){
         let platforms = data_json_games[i].platforms;
         for (let j = 0; j < platforms.length; j++){
             if (!data_json_platforms.some( elem => {
-                return JSON.stringify(platforms[j]) === JSON.stringify(elem)
+                return JSON.stringify(platforms[j]) === JSON.stringify(elem);
             })){
                 data_json_platforms.push(platforms[j]);
             }
@@ -55,6 +55,7 @@ async function initData(){
         5: "18+",
         6: "Pending",
     };
+    let fields_games = fields["games"];
     for (let i = 0; i < data_json_games.length; i++){
         entry = data_json_games[i];
         // parse and replace components of each entry where necessary
@@ -71,8 +72,23 @@ async function initData(){
         let pegiRating = findComponent(entry.age_ratings, "category", 2);
         if (typeof(pegiRating) !== "undefined"){
             entry.age_rating = ratings[pegiRating.rating];
-        } else {
-            entry.age_rating = "None Set";
+        }
+
+        for (let j = 0; j < fields_games.length; j++){
+            if (fields_games[j].required && typeof(entry[fields_games[j].id]) === "undefined"){
+                entry[fields_games[j].id] = "None Set";
+            }
+        }
+        entry.user_submitted = false;
+    }
+    let fields_platforms = fields["platforms"];
+    for (let i = 0; i < data_json_platforms.length; i++){
+        entry = data_json_platforms[i];
+
+        for (let j = 0; j < fields_platforms.length; j++){
+            if (fields_platforms[j].required && typeof(entry[fields_platforms[j].id]) === "undefined"){
+                entry[fields_platforms[j].id] = "None Set";
+            }
         }
 
         entry.user_submitted = false;
@@ -119,8 +135,7 @@ app.get("/search", async function (req, resp) {
 
     let data_list_entity = await data_list[entity];
 
-
-    for (let i = 0; i < await data_list_entity.length; i++) {
+    for (let i = 0; i < data_list_entity.length; i++) {
         entry = data_list_entity[i];
         entryName = entry.name;
         if (entryName.toLowerCase().includes(key.toLowerCase())) {
@@ -135,15 +150,16 @@ app.get("/search", async function (req, resp) {
         }
     }
 
+    let info_entity = entity.slice(0, entity.length-1)// turn plural into single
 
     if (key !== ""){
         info_search = ` for search "${key}"`;
     }
 
     if (resp_list.length === 0) {
-        info_full = `No results found${info_search}.<br><br>`;
+        info_full = `No ${info_entity} results found${info_search}.<br><br>`;
     } else {
-        info_full = `Showing all results${info_search}:<br><br>`;
+        info_full = `Showing all ${info_entity} results${info_search}:<br><br>`;
     }
 
     //Response provided as JSON
@@ -192,7 +208,7 @@ function parseField(key, value, entity) {
             return  "None Set"; // if field requires value but not user input, give it a value
         }
         // if field requires user input but none given, nothing is returned as the parsed value is undefined
-    } else if (multiFields.includes(key)) {
+    } else if (multiFields.includes(key) && !Array.isArray(value)) {
         return value.split(", ");
     } else {
         return value;
@@ -205,6 +221,8 @@ app.post("/add", checkJwt, async function(req, resp){
     const input = req.body;
     const entity = req.headers.entity;
 
+
+    console.log(input);
     let validRequest = true;
     let invalidFields = [];
     let entry = {};
@@ -221,7 +239,6 @@ app.post("/add", checkJwt, async function(req, resp){
     }
 
     if (validRequest) {
-        console.log(entry)
         entry.user_submitted = true;
         data_list[entity].unshift(entry);
         //Response provided as JSON

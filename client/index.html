@@ -4,84 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="index.css">
 
+    <!-- bootstrap etc. -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- dropdown select -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- auth0 -->
     <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
+
+    <!-- local -->
+    <link rel="stylesheet" type="text/css" href="index.css">
     <script src='index.js'></script>
 
-    <title>Title</title>
+    <title>GameSearch</title>
 
 </head>
 
+
 <body>
 
+
 <div class="wrapper">
+    <input type="checkbox" id="sidebar-checkbox">
+    <div class="nav-container">
+        <nav>
+            <input type="checkbox" id="nav-checkbox" > <!--autocomplete="off"-->
+            <label for="nav-checkbox" class="burger-button">
+                <i class="fas fa-bars"></i>
+            </label>
+            <div class="nav-left">
+                <input id="loginButton" type="button" value="Login">
+                <label for="sidebar-checkbox" class="sidebar-button" id="sidebar-button">
+                    Add Entry
+                </label>
+            </div>
+            <div class="nav-mid">GameSearch</div>
+            <div class="nav-right">
 
-    <nav class="titlebar">
-        <button class="sidebarToggle sidebarOn" id="sidebarToggle" onclick="toggleSidebar()">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-
-        <div class="textContainer">
-            GameSearch
-        </div>
-        <div id = "searchContainer" class="searchContainer sidebarOn">
-            <form id="searchForm">
-                <input  id="searchInput" autocomplete="off" type="text" placeholder="Search...">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </input>
-
-            </form>
-        </div>
-    </nav>
+                <form id="searchForm" class="searchContainer">
+                    <input  id="searchInput" autocomplete="off" type="text" placeholder="Search..."
+                    ><button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+                <span>Test</span>
 
 
-    <div class="sidebar sidebarOn" id="sidebar">
-        <div id="sidebarForm">
-            <input id="getFormButton" type="button" value="Add Entry (requires login)"><br>
-
-        </div>
-        <input id="loginButton" type="button" value="Login"><br>
+            </div>
+        </nav>
     </div>
 
-    <div>
-        <div id="returnDiv" class="returnDiv"><a href ="http://127.0.0.1:8090/games/search?key=" id="returnLink">Return to full list</a></div>
+    <div id="sidebar" class="sidebar"></div>
+    <div class="main">
+        <div id="returnDiv" class="returnDiv"><a href = "#" id="returnLink">Return to full list</a></div>
         <div id="content" class="content"></div>
     </div>
-</div>
-    <!--
-    <div class="sidebar">
-
-        <div class="tab">
-            <button class="tabButton active" onclick="openTab(event,'searchTab')">Search</button>
-            <button class="tabButton" onclick="openTab(event,'addTab')">Add</button>
-        </div>
-
-        <div class="tabContent" id="searchTab" style="display: block;">
-            <form id="searchForm">
-                <input  id="searchInput">
-                <input id="searchButton" type="submit" value="Submit Search">
-            </form>
-        </div>
-
-
-        <div class="tabContent" id="addTab" style="display: none;">
-            <form id="addForm">
-                <label for="label">Title</label><input id="label" name="label"/><br>
-                <label for="href">Link</label><input id="href" name="href"/><br>
-                <label for="ingredients">Ingredients</label><input id="ingredients" name="ingredients"/><br>
-                <label for="thumbnail">Thumbnail</label><input id="thumbnail" name="thumbnail"/><br>
-                <input id="addButton" type="submit" value="Add Entry">
-            </form>
-        </div>
 
     </div>
 
-    <div class="main" id="content">
-
-    </div>-->
 </body>
-
-</html>

@@ -38,8 +38,7 @@ function toggleSidebar() {
     // get moving elements and put in array
     const button = document.getElementById("sidebarToggle");
     const sidebar = document.getElementById("sidebar");
-    const search = document.getElementById("searchContainer");
-    const movingElements = [button, sidebar, search];
+    const movingElements = [button, sidebar];
 
     // define which string to replace with which
     let searchValue, replaceValue;
@@ -187,7 +186,7 @@ function defineLinks(data_list, entity) {
             // for any referenced entities (e.g. list of platforms for a specific game), define those links too
             for (let referencedEntity in REData) {
                 if (REData.hasOwnProperty(referencedEntity)) {
-                    defineLinks(REData[referencedEntity], referencedEntity)
+                    defineLinks(REData[referencedEntity], referencedEntity);
                 }
             }
 
@@ -197,8 +196,9 @@ function defineLinks(data_list, entity) {
 }
 
 async function getList(entity, key){
+
     if (typeof(key) === "undefined") {
-        key = ""
+        key = "";
     }
     return await genericGet({
         fetchURL: `http://127.0.0.1:8090/search?entity=${entity}&key=${key}`,
@@ -262,20 +262,22 @@ document.addEventListener("DOMContentLoaded",  async function() {
     let entity = "games";
 
     // define DOM element references
-    const searchForm = document.getElementById("searchForm");
     const loginButton = document.getElementById("loginButton");
-    const getFormButton = document.getElementById("getFormButton");
+    /*
+    const searchForm = document.getElementById("searchForm");
+     */
+    const getFormCheckbox = document.getElementById("sidebar-checkbox");
+    const getFormLabel = document.getElementById("sidebar-button");
     const returnLink = document.getElementById("returnLink");
     returnLink.addEventListener("click", function(event){
         event.preventDefault();   // do not redirect or refresh
         search("", entity);
     });
 
-
     // perform initial search to populate page on load
     search("", entity);
 
-    // when search query is submitted, search again using form value as key
+    // when search query is submitted, listen for user search via form
     searchForm.addEventListener("submit", async function (event) {
         event.preventDefault();   // do not redirect or refresh
         search(searchForm[0].value, entity);
@@ -283,11 +285,11 @@ document.addEventListener("DOMContentLoaded",  async function() {
 
     // determine button attributes and actions based on whether user is logged in (has token) or not
     let logInOutFunction; // function to run when user clicks login/logout
-
     if (accessToken) {
         loginButton.value = "Logout";
-        getFormButton.value = "Add Entry";
-        getFormButton.disabled = false;
+        getFormCheckbox.value = "Add Entry";
+        getFormCheckbox.disabled = false;
+        getFormLabel.className = getFormCheckbox.className.replace(" disabled", "");
         logInOutFunction = function(){
             webAuth.logout({
                 returnTo: "http://127.0.0.1:8090",
@@ -296,49 +298,94 @@ document.addEventListener("DOMContentLoaded",  async function() {
         };
     } else {
         loginButton.value = "Login";
-        getFormButton.value = "Add Entry (requires login)";
-        getFormButton.disabled = true;
+        getFormCheckbox.value = "Add Entry";
+        //getFormCheckbox.disabled = true;
+        //getFormLabel.className += " disabled";
         logInOutFunction = function(){
             webAuth.authorize();
         };
     }
 
+    console.log(getFormCheckbox.className)
+
     // log in or out, depending on presence of accessToken and corresponding result above
     loginButton.addEventListener("click",  logInOutFunction);
 
     // listen for user's request for the entry form
-    getFormButton.addEventListener("click", async function () {
+
+    getFormCheckbox.addEventListener("click", async function () {
         // get information about fields to construct HTML form string with
         let fieldInfo = await genericGet({
-            fetchURL: `http://127.0.0.1:8090/getFieldInfo?entity=${entity}&components=label`,
+            fetchURL: `http://127.0.0.1:8090/getFieldInfo?entity=${entity}&components=label,isEntity`,
             responseOkFunction: async function(response){
                 return response.json();
             }
         });
 
         // construct HTML form string
-        let formString = `<form id="addForm">`;
+        let formString = "<form id=\"addForm\">";
         for (let i = 0; i < fieldInfo.length; i++) {
-            formString += `<input id="${fieldInfo[i].id}" name="${fieldInfo[i].id}" placeholder="${fieldInfo[i].label}"><br>`;
+            if (fieldInfo[i].isEntity) {
+                formString +=   `<select
+                                    id=${fieldInfo[i].id}
+                                    class="selectpicker"
+                                    multiple data-live-search="true"
+                                    data-style="btn-default"
+                                    data-selected-text-format="count > 2"
+                                    data-width = 100%
+                                    title="Platforms"
+                                >`;
+                let choiceList = (await getList(fieldInfo[i].id)).data;
+                for (let j = 0; j < choiceList.length; j++) {
+                    formString += `<option value="${choiceList[j].name}">${choiceList[j].name}</option>\n`;
+                }
+                formString += "</select><br>";
+            } else {
+                formString += `<input id="${fieldInfo[i].id}" name="${fieldInfo[i].id}" placeholder="${fieldInfo[i].label}"><br>`;
+            }
         }
-        formString += `<input id="addButton" type="submit" value="Submit Entry">`;
-        formString += `</form>`;
+        formString += "<input id=\"addButton\" type=\"submit\" value=\"Submit Entry\">";
+        formString += "</form>";
 
         // display constructed HTML form
-        document.getElementById("sidebarForm").innerHTML = formString;
+        document.getElementById("sidebar").innerHTML = formString;
+        $(".selectpicker").selectpicker();
 
         // get reference to form as JS object and define submission behaviour
         const addForm = document.getElementById("addForm");
         addForm.addEventListener("submit", async function (event) {
             event.preventDefault();  // do not redirect or refresh
 
+            // source: https://stackoverflow.com/a/5867262
+            function getAllSelectedValues(element) {
+                let result = [];
+                const options = element && element.options;
+                let opt;
+                for (let i = 0, iLen = options.length; i < iLen; i++) {
+                    opt = options[i];
+                    if (opt.selected) {
+                        result.push(opt.value || opt.text);
+                    }
+                }
+                return result;
+            }
+
             // create array of JSON objects to send to server: one for each field
             let formData = [];
+            let value, formField;
             for (let i = 0; i < fieldInfo.length; i++) {
+                formField = document.getElementById(fieldInfo[i].id);
+
+                if (formField.className === "selectpicker") {
+                    value = getAllSelectedValues(formField);
+                } else {
+                    value = formField.value;
+                }
+
                 formData.push({
                     id: fieldInfo[i].id,
                     label: fieldInfo[i].label,
-                    value: document.getElementById(fieldInfo[i].id).value
+                    value: value
                 });
             }
 
@@ -375,12 +422,13 @@ document.addEventListener("DOMContentLoaded",  async function() {
                     // for any referenced entities (e.g. list of platforms for a specific game), define those links too
                     for (let referencedEntity in REData) {
                         if (REData.hasOwnProperty(referencedEntity)) {
-                            defineLinks(REData[referencedEntity], referencedEntity)
+                            defineLinks(REData[referencedEntity], referencedEntity);
                         }
                     }
 
                     // clear the form
                     addForm.reset();
+                    $(".selectpicker").selectpicker("refresh");
                 } else {
                     throw new Error(response.status + " " + response.statusText);
                 }

@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { getSingleComponent, fields, saveJSONData} = require("./utilities");
+const { getSingleComponent, fields} = require("./utilities");
 
 //const primaryDataLocation = 'http://www.recipepuppy.com/api/?i=potato'
 //const primaryDataLocation = 'http://www.recipepuppy.com/api/?i='
@@ -46,6 +46,9 @@ module.exports = async function (entity){
 
     }
 
-    //saveJSONData("igdb_backup.json", data_json_games); // uncomment to update backup
+
+    // uncomment to update backup (do not run in nodemon mode)
+    //require("./utilities").saveJSONData("igdb_backupdhfjbdrhjbfhrdj.json", data_json_games);
+
     return(data_json_games);
 };
