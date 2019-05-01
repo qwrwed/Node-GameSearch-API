@@ -203,7 +203,9 @@ function getAllSelectedValues(element) {
 
 /* AUTHENTICATION */
 // webAuth object for auth0 authentication
+// configured to work with my auth0 account's application and API
 // does not contain any sensitive information, so it can be distributed in this file without compromising security
+// https://codeburst.io/authentication-made-easy-with-auth0-part-2-4d4976db8fdb
 const webAuth = new auth0.WebAuth({ // eslint-disable-line
     clientID: "jwjvlApldvpaiQq1BQRwYR9Fahj7IqcY",
     domain: "dev-mvcjlscb.eu.auth0.com",
