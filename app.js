@@ -1,52 +1,46 @@
 
+const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
+const fetchInitialData = require("./fetch_initial_data");
+const { checkJwt } = require("./checkJwt");
 
-//JSON web tokens, used for authentication
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("client"));
 
-//auth0 authentication
-const checkJwt = jwt({
-    secret: jwksRsa.expressJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        jwksUri: "https://dev-mvcjlscb.eu.auth0.com/.well-known/jwks.json"
-    }),
-    audience: "http://127.0.0.1:8090",
-    issuer: "https://dev-mvcjlscb.eu.auth0.com/",
-    algorithms: [ "RS256" ],
-});
-
 // get utility functions from separate file
 const { getSingleComponent, getMultipleComponents, findComponent, fields } = require("./utilities");
-
-
+const supportedEntities = Object.keys(fields);
+const defaultEntity = supportedEntities[0];
 
 // process the initial data
 async function initData(){
+    const game_limit = 2; // number of games to request from external API (max 50)
 
-    // get unprocessed initial data from separate file
-    let data_json_games = await require("./fetch_initial_data")("games");
+    // get unprocessed initial games data from separate script
+    let data_json_games = await fetchInitialData(game_limit);
     let data_json_platforms = [];
+
+    // iterate through this games data
     for (let i = 0; i < data_json_games.length; i++){
         let platforms = data_json_games[i].platforms;
-        for (let j = 0; j < platforms.length; j++){
-            if (!data_json_platforms.some( elem => {
-                return JSON.stringify(platforms[j]) === JSON.stringify(elem);
-            })){
-                data_json_platforms.push(platforms[j]);
+        if (typeof(platforms) !== "undefined") {
+            // for each game, iterate through its platforms
+            for (let j = 0; j < platforms.length; j++) {
+                // for each platform, add to platforms data if not already added
+                if (!data_json_platforms.some(elem => {
+                    return JSON.stringify(platforms[j]) === JSON.stringify(elem);
+                })) {
+                    data_json_platforms.push(platforms[j]);
+                }
             }
         }
     }
 
-    let entry;
+    // translations for ratings codes aren't included in the JSON data, so they must be looked up from here
     let ratings = {
         1: "3+",
         2: "7+",
@@ -55,9 +49,14 @@ async function initData(){
         5: "18+",
         6: "Pending",
     };
-    let fields_games = fields["games"];
+
+    let entry;
+    let fields_games = fields.games.data;
+
+    // process games data
     for (let i = 0; i < data_json_games.length; i++){
         entry = data_json_games[i];
+
         // parse and replace components of each entry where necessary
         if (typeof(entry.cover) !== "undefined"){
             entry.cover = `https://images.igdb.com/igdb/image/upload/t_cover_big/${entry.cover.image_id}.jpg`;
@@ -81,7 +80,9 @@ async function initData(){
         }
         entry.user_submitted = false;
     }
-    let fields_platforms = fields["platforms"];
+
+    // process platforms data
+    let fields_platforms = fields["platforms"].data;
     for (let i = 0; i < data_json_platforms.length; i++){
         entry = data_json_platforms[i];
 
@@ -106,7 +107,7 @@ async function initData(){
 // This will set data_list to be a Promise that contains the list of data
 // This Promise will be resolved by the middleware app.use() when it is needed
 let data_list = (async () =>{
-    return(await initData());
+    return(initData());
 })();
 
 // Ensure promise containing data_list is resolved for any request
@@ -129,12 +130,13 @@ app.get("/search", async function (req, resp) {
         key = "";
     }
 
-    if (typeof(entity) === "undefined") {
-        entity = "games";
+    if (!supportedEntities.includes(req.query.entity)) {
+        entity = defaultEntity;
     }
 
     let data_list_entity = await data_list[entity];
 
+    // iterate through list and only add when search matches
     for (let i = 0; i < data_list_entity.length; i++) {
         entry = data_list_entity[i];
         entryName = entry.name;
@@ -150,19 +152,19 @@ app.get("/search", async function (req, resp) {
         }
     }
 
-    let info_entity = entity.slice(0, entity.length-1)// turn plural into single
-
+    // construct information string to return along with list
+    let info_entity = entity.slice(0, entity.length-1); // turn plural into single (e.g. "games" -> "game")
     if (key !== ""){
         info_search = ` for search "${key}"`;
     }
-
     if (resp_list.length === 0) {
         info_full = `No ${info_entity} results found${info_search}.<br><br>`;
     } else {
         info_full = `Showing all ${info_entity} results${info_search}:<br><br>`;
     }
 
-    //Response provided as JSON
+    // provide response as JSON
+    resp.set("api-entity-type", entity);
     resp.send({
         text: info_full,
         data: resp_list
@@ -170,85 +172,138 @@ app.get("/search", async function (req, resp) {
 
 });
 
-//GET method for individual details
+
+// GET method for individual details
 app.get("/entry", async function (req, resp){
-    //Response provided as JSON
-    resp.send(data_list[req.query.entity][req.query.id]);
+    let entity = req.query.entity;
+    if (!supportedEntities.includes(req.query.entity)) {
+        entity = defaultEntity;
+    }
+    resp.set("api-entity-type", entity);
+    resp.send(data_list[entity][req.query.id]);
 });
 
-
+// GET information about fields for entities
 app.get("/getFieldInfo", function(req ,resp){
-    if (typeof(req.query.components) === "undefined") {
-        resp.send(fields[req.query.entity]);
+    if (!supportedEntities.includes(req.query.entity)) {
+        // if undefined/unsupported entity, assume client needs field names
+        let entityNames = {};
+        for (let field in fields) {
+            if (fields.hasOwnProperty(field)) {
+                entityNames[field] = fields[field].name;
+            }
+        }
+        resp.send(entityNames);
+    } else if (typeof(req.query.components) === "undefined") {
+        // otherwise, send them field data for their queried entity
+        // if no components specified, send list as it is
+        resp.send(fields[req.query.entity].data);
     } else {
+        // otherwise, only send the components queried
         let components = req.query.components.split(",");
         if (!components.includes("id")) {
             components.unshift("id");
         }
-        resp.send(getMultipleComponents(fields[req.query.entity], components));
+        resp.send(getMultipleComponents(fields[req.query.entity].data, components));
     }
 });
 
-
+// send custom 404 error message for any invalid paths
 app.get("/*", function(req, resp){
     resp.status(404);
     resp.statusMessage = "The requested resource does not exist.";
     resp.send();
 });
 
-
+// return validated form of field value, depending on the field type and entity type
 function parseField(key, value, entity) {
-    const requiredUserInputFields = ["name"]; //fields that cannot be empty; require user input
     const multiFields = ["platforms", "genres"];
+    const requiresValue = findComponent(fields[entity].data, "id", key).required;
 
-    const requiresValue = findComponent(fields[entity], "id", key).required;
-
+    if (typeof(value) === "string") { value = escapeHtml(value); } // sanitize input
+    
     if ((value === "" || typeof(value) === "undefined") && requiresValue) {
-        if (!requiredUserInputFields.includes(key)) {
-            return  "None Set"; // if field requires value but not user input, give it a value
-        }
+        value = "None Set"; // if field requires value but not user input, give it a value
         // if field requires user input but none given, nothing is returned as the parsed value is undefined
     } else if (multiFields.includes(key) && !Array.isArray(value)) {
-        return value.split(", ");
-    } else {
-        return value;
+        value = value.split(", ");
     }
-
+    return value;
 }
+
+function escapeHtml(text) {
+    // source: https://stackoverflow.com/a/4835406
+    var map = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#039;"
+    };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
 
 //POST method to add new
 app.post("/add", checkJwt, async function(req, resp){
+
     const input = req.body;
     const entity = req.headers.entity;
-
-
-    console.log(input);
-    let validRequest = true;
-    let invalidFields = [];
     let entry = {};
-    let parsedField;
+    let invalidFields = [];
 
-    for (let i = 0; i < input.length; i++) {
-        parsedField = parseField(input[i].id, input[i].value, entity);
-        if (typeof(parsedField) === "undefined") {
-            validRequest = false;
-            invalidFields.push(input[i].label);
-        } else {
-            entry[input[i].id] = parsedField;
+    let validRequest = true;
+    if (!supportedEntities.includes(entity)) {
+        resp.statusMessage = "Invalid Request: invalid entity type";
+        validRequest = false;
+    } else if (!Array.isArray(input)){
+        resp.statusMessage = "Invalid Request: empty body";
+        validRequest = false;
+    } else {
+
+
+        // determine each required field exists
+        const requiredUserInputFields = ["name"]; //fields that cannot be empty; require user input
+        for (let i = 0; i < requiredUserInputFields.length; i++) {
+            const foundComponent = findComponent(input, "id", requiredUserInputFields[i]);
+            if (typeof (foundComponent) === "undefined" || foundComponent.value === "") {
+                validRequest = false;
+                invalidFields.push(requiredUserInputFields[i]);
+                resp.statusMessage = "Invalid Request: Missing value(s) for field(s): " + invalidFields;
+            }
+        }
+    }
+    if (validRequest) {
+        let parsedField;
+        // parse each field and add to object, collecting information about invalid fields as necessary
+        for (let i = 0; i < input.length; i++) {
+            parsedField = parseField(input[i].id, input[i].value, entity);
+            if (typeof(parsedField) === "undefined") {
+                /*
+                this code will only be run if parseField is extended to return undefined
+                when a value is invalid (e.g. contains disallowed characters)
+                */
+                validRequest = false;
+                invalidFields.push(input[i].label);
+                resp.statusMessage = "Invalid Request: Invalid value(s) for field(s): " + invalidFields;
+            } else {
+                entry[input[i].id] = parsedField;
+            }
+
         }
     }
 
     if (validRequest) {
+        // set user-submitted flag, add the new entry to the start of the data list and send it back to the user
         entry.user_submitted = true;
         data_list[entity].unshift(entry);
-        //Response provided as JSON
+        resp.set("api-entity-type", entity);
+        resp.status(201);
         resp.send(entry);
     } else {
         resp.status(400);
-        resp.statusMessage = "Invalid Request: Invalid value(s) for field(s): " + invalidFields;
         resp.send();
     }
-
 });
 
-module.exports = app;
+module.exports = { app };

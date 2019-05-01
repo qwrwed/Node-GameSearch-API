@@ -4,8 +4,8 @@
   "description": "Website project for L1 Programming",
   "main": "server.js",
   "scripts": {
-    "pretest": "eslint .",
-    "test": "jest",
+    "pretest": "eslint . --fix",
+    "test": "jest --coverage",
     "start": "nodemon server.js"
   },
   "author": "",
