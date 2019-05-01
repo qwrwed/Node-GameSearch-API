@@ -42,22 +42,22 @@ const fields = {
     games: {
         name: "Games",
         data:[
-            {id: "name", query: "name", label: "Name", html: "<h1>$</h1>", required: true},
+            {id: "name", query: "name", label: "Name", html: "<h1>$</h1>", required: true, isEntity: false},
             {id: "platforms", query: "platforms.*", label: "Platforms", html: "Platforms: $<br>", required: true, isEntity: true},
-            {id: "genres", query: "genres.*", label: "Genres", html: "Genres: $<br>", required: true},
+            {id: "genres", query: "genres.*", label: "Genres", html: "Genres: $<br>", required: true, isEntity: false},
             {id: "age_rating", query: "age_ratings.*", label: "PEGI Age Rating", html: "PEGI Age Rating: $<br>", required: true},
-            {id: "cover", query: "cover.*", label: "Image URL", html: "<img src=$><br>", required: false},
-            {id: "summary", query: "summary", label: "Summary", html: "Summary: $<br>", required: false},
-            {id: "storyline", query: "storyline", label: "Plot", html: "Plot: $<br>", required: false}
+            {id: "cover", query: "cover.*", label: "Image URL", html: "<img src=$><br>", required: false, isEntity: false},
+            {id: "summary", query: "summary", label: "Summary", html: "Summary: $<br>", required: false, isEntity: false},
+            {id: "storyline", query: "storyline", label: "Plot", html: "Plot: $<br>", required: false, isEntity: false}
         ]
     },
     platforms: {
         name: "Platforms",
         data: [
-            {id: "name", label: "Name", html: "<h1>$</h1>", required: true},
-            {id: "abbreviation", label: "Abbreviation", html: "Abbreviation: $<br>", required: false},
-            {id: "alternative_name", label: "Alternative Name", html: "Alternative Name: $<br>", required: false},
-            {id: "summary", label: "Summary", html: "<br>Description: $<br>", required: true}
+            {id: "name", label: "Name", html: "<h1>$</h1>", required: true, isEntity: false},
+            {id: "abbreviation", label: "Abbreviation", html: "Abbreviation: $<br>", required: false, isEntity: false},
+            {id: "alternative_name", label: "Alternative Name", html: "Alternative Name: $<br>", required: false, isEntity: false},
+            {id: "summary", label: "Summary", html: "<br>Description: $<br>", required: true, isEntity: false}
         ]
     }
 };

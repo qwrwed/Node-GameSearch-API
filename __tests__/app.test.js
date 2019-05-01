@@ -276,4 +276,11 @@ describe("Coverage tests", () => {
             .expect("Content-type", /json/);
 
     });
+
+    test("GET nonexistent /entry returns 404 ", () => {
+        return request(app)
+            .get("/entry?id=NaN")
+            .expect(404);
+    });
+
 });

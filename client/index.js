@@ -48,7 +48,7 @@ async function search(key, entity) {
 
     // place links in page
     for (let i = 0; i < data_list.length; i++){
-        s += `<a href ="${root_url}/entity=${entity}&entry?id=${data_list[i].id}" id="${entity}_entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
+        s += `<a href ="${root_url}/entry?entity=${entity}&entry?id=${data_list[i].id}" id="${entity}_entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
     }
     document.getElementById("content").innerHTML = s;
 
@@ -375,7 +375,6 @@ document.addEventListener("DOMContentLoaded",  async function() {
                 }
                 formData.push({
                     id: fieldInfo[i].id,
-                    label: fieldInfo[i].label,
                     value: value
                 });
             }

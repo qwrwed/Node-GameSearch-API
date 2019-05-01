@@ -171,9 +171,9 @@ app.get("/search", async function (req, resp) {
     if (resp_list.length === 0) {
         info_full = `No ${info_entity} results found${info_search}.<br><br>`;
     } else {
-        info_full += `<small> asterisks (*) indicate user-submitted content</small><br>`;
+        info_full += "<small> asterisks (*) indicate user-submitted content</small><br>";
         info_full += `Showing all ${info_entity} results${info_search}<br>`;
-        info_full += `<br>`
+        info_full += "<br>";
     }
 
     // provide response as JSON
@@ -193,7 +193,13 @@ app.get("/entry", async function (req, resp){
         entity = defaultEntity;
     }
     resp.set("api-entity-type", entity);
-    resp.send(data_list[entity][req.query.id]);
+    const entry = data_list[entity][req.query.id];
+    if (typeof(entry) === "undefined"){
+        resp.status(404);
+        resp.send();
+    } else {
+        resp.send(entry);
+    }
 });
 
 // GET information about fields for entities
