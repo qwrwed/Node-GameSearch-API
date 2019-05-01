@@ -274,22 +274,9 @@ app.post("/add", checkJwt, async function(req, resp){
         }
     }
     if (validRequest) {
-        let parsedField;
         // parse each field and add to object, collecting information about invalid fields as necessary
         for (let i = 0; i < input.length; i++) {
-            parsedField = parseField(input[i].id, input[i].value, entity);
-            if (typeof(parsedField) === "undefined") {
-                /*
-                this code will only be run if parseField is extended to return undefined
-                when a value is invalid (e.g. contains disallowed characters)
-                */
-                validRequest = false;
-                invalidFields.push(input[i].label);
-                resp.statusMessage = "Invalid Request: Invalid value(s) for field(s): " + invalidFields;
-            } else {
-                entry[input[i].id] = parsedField;
-            }
-
+            entry[input[i].id] = parseField(input[i].id, input[i].value, entity);
         }
     }
 
