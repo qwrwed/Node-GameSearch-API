@@ -19,14 +19,10 @@ const defaultEntity = supportedEntities[0];
 /* ADDING ENTITIES */
 
 /*
-To add more entities, expand the fields object in utilities.js with the relevant information (see existing for examples)
-
+To add more entities to this program, expand the fields object in utilities.js with the relevant information (see existing for examples)
 For a fully independent object, the methods used in fetch_initial_data.js can be copied and edited (same way as "games")
-
 For an object referenced by pre-existing data, it's query in the fields object must be defined to make sure it's included
-
 It can then be processed in the same way as "platforms"
-
 The entities are only hard-coded into this setup phase; after a successful setup, the rest of the code will
 automatically be compatible with all entities.
 */
@@ -136,8 +132,6 @@ app.get("/search", async function (req, resp) {
 
     let key = req.query.key;
     let entity = req.query.entity;
-    let info_full;
-    let info_search = "";
     let entry, entryName;
     let resp_list = [];
 
@@ -169,13 +163,17 @@ app.get("/search", async function (req, resp) {
 
     // construct information string to return along with list
     let info_entity = entity.slice(0, entity.length-1); // turn plural into single (e.g. "games" -> "game")
+    let info_search = "";
+    let info_full = "";
     if (key !== ""){
         info_search = ` for search "${key}"`;
     }
     if (resp_list.length === 0) {
         info_full = `No ${info_entity} results found${info_search}.<br><br>`;
     } else {
-        info_full = `Showing all ${info_entity} results${info_search}:<br><br>`;
+        info_full += `<small> asterisks (*) indicate user-submitted content</small><br>`;
+        info_full += `Showing all ${info_entity} results${info_search}<br>`;
+        info_full += `<br>`
     }
 
     // provide response as JSON
