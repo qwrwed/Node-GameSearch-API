@@ -54,10 +54,10 @@ const fields = {
     platforms: {
         name: "Platforms",
         data: [
-            {id: "name", query: "name", label: "Name", html: "<h1>$</h1>", required: true},
-            {id: "abbreviation", query: "abbreviation", label: "Abbreviation", html: "Abbreviation: $<br>", required: false},
-            {id: "alternative_name", query: "alternative_name", label: "Alternative Name", html: "Alternative Name: $<br>", required: false},
-            {id: "summary", query: "summary", label: "Summary", html: "<br>Description: $<br>", required: true}
+            {id: "name", label: "Name", html: "<h1>$</h1>", required: true},
+            {id: "abbreviation", label: "Abbreviation", html: "Abbreviation: $<br>", required: false},
+            {id: "alternative_name", label: "Alternative Name", html: "Alternative Name: $<br>", required: false},
+            {id: "summary", label: "Summary", html: "<br>Description: $<br>", required: true}
         ]
     }
 };

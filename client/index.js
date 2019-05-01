@@ -1,5 +1,7 @@
 "use strict";
 
+const root_url = "http://127.0.0.1:8090";
+
 /* UTILITY FUNCTIONS */
 
 // general-purpose GET function to avoid repetition of code
@@ -27,7 +29,7 @@ async function getList(entity, key){
     if (typeof(key) === "undefined") {
         key = "";
     }
-    return await genericGet(`http://127.0.0.1:8090/search?entity=${entity}&key=${key}`);
+    return await genericGet(`${root_url}/search?entity=${entity}&key=${key}`);
 }
 
 // get data, then format it as HTML, then define link behaviours
@@ -46,7 +48,7 @@ async function search(key, entity) {
 
     // place links in page
     for (let i = 0; i < data_list.length; i++){
-        s += `<a href ="http://127.0.0.1:8090/entity=${entity}&entry?id=${data_list[i].id}" id="${entity}_entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
+        s += `<a href ="${root_url}/entity=${entity}&entry?id=${data_list[i].id}" id="${entity}_entry_${data_list[i].id}" >${data_list[i].name}</a><br>`;
     }
     document.getElementById("content").innerHTML = s;
 
@@ -70,7 +72,7 @@ function defineLinks(data_list, entity) {
             const id_selected = event.target.id.replace(`${entity}_entry_`, "");
 
             // when link is clicked, get the entry as JSON
-            const entry = await genericGet(`http://127.0.0.1:8090/entry?entity=${entity}&id=${id_selected}`);
+            const entry = await genericGet(`${root_url}/entry?entity=${entity}&id=${id_selected}`);
 
             // from this JSON, get HTML string, and data about any referenced entities
             const {string, REData} = await stringifyEntry(entry, entity);
@@ -96,7 +98,7 @@ function defineLinks(data_list, entity) {
 async function refreshEntity(entity) {
     await refreshSidebar(entity);
     search("", entity);
-    return genericGet(`http://127.0.0.1:8090/getFieldInfo?entity=${entity}&components=label,isEntity`);
+    return genericGet(`${root_url}/getFieldInfo?entity=${entity}&components=label,isEntity`);
 }
 
 
@@ -118,7 +120,7 @@ async function stringifyEntry(entry, entity) {
     // get field info JSON object
     // contains ids for getting information from JSON entry
     // also contains HTML strings pre-formatted to take this information according to the data type (header, image, etc.)
-    let fieldInfo = await genericGet(`http://127.0.0.1:8090/getFieldInfo?entity=${entity}`);
+    let fieldInfo = await genericGet(`${root_url}/getFieldInfo?entity=${entity}`);
 
     let fieldValue; // raw data (generally string or array)
     let fieldValueString; // data converted to string form
@@ -164,7 +166,7 @@ async function stringifyEntry(entry, entity) {
                     REID = REInstance.id;
 
                     // add instance HTML to returned HTML array and instance object to returned data object
-                    REHTML.push(`<a href ="http://127.0.0.1:8090/entry?entity=${REType}&id=${REID}" id="${REType}_entry_${REID}" >${REName}</a>`);
+                    REHTML.push(`<a href ="${root_url}/entry?entity=${REType}&id=${REID}" id="${REType}_entry_${REID}" >${REName}</a>`);
                     REData[REType].push(REInstance);
                 }
                 // set fieldValue to list of instance HTML strings
@@ -206,8 +208,8 @@ const webAuth = new auth0.WebAuth({ // eslint-disable-line
     clientID: "jwjvlApldvpaiQq1BQRwYR9Fahj7IqcY",
     domain: "dev-mvcjlscb.eu.auth0.com",
     responseType: "token id_token",
-    audience: "http://127.0.0.1:8090",
-    redirectUri: "http://127.0.0.1:8090",
+    audience: "http://127.0.0.1:8090", // not an actual URL, but this identifier cannot be changed after creation
+    redirectUri: `${root_url}`,
     scope: "openid profile",
 });
 
@@ -230,7 +232,7 @@ function getAccessToken(){
 
 async function refreshSidebar(entity) {
 
-    const fieldInfo = await genericGet(`http://127.0.0.1:8090/getFieldInfo?entity=${entity}&components=label,isEntity`);
+    const fieldInfo = await genericGet(`${root_url}/getFieldInfo?entity=${entity}&components=label,isEntity`);
 
     // construct HTML form string
     let formString = "";
@@ -275,7 +277,7 @@ document.addEventListener("DOMContentLoaded",  async function() {
     let entity;
 
     // get list of entity types from server to populate dropdown entity select list
-    let entityNames = await genericGet("http://127.0.0.1:8090/getFieldInfo");
+    let entityNames = await genericGet(`${root_url}/getFieldInfo`);
     const entitySelect = document.getElementById("entitySelect");
     let fieldInfo;
 
@@ -329,13 +331,14 @@ document.addEventListener("DOMContentLoaded",  async function() {
         sidebarCheckbox.disabled = false; // allow toggling sidebar display
         logInOutFunction = function(){ // set function to logout
             webAuth.logout({
-                returnTo: "http://127.0.0.1:8090",
+                returnTo: `${root_url}`,
                 client_id: "jwjvlApldvpaiQq1BQRwYR9Fahj7IqcY"
             });
         };
     } else {
         loginButton.value = "Login";
         sidebarButton.className += " disabled";
+        sidebarCheckbox.checked = false;
         sidebarCheckbox.disabled = true;
         logInOutFunction = function(){ // set function to login
             webAuth.authorize();
@@ -380,7 +383,7 @@ document.addEventListener("DOMContentLoaded",  async function() {
             // try to POST, alerting/printing any caught error
             try {
                 // POST to server with authentication token
-                let response = await fetch("http://127.0.0.1:8090/add",{
+                let response = await fetch(`${root_url}/add`,{
                     method: "POST",
                     // ensure correct content type, authorisation token and entity type are provided
                     headers:{

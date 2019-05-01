@@ -16,9 +16,24 @@ const { getSingleComponent, getMultipleComponents, findComponent, fields } = req
 const supportedEntities = Object.keys(fields);
 const defaultEntity = supportedEntities[0];
 
+/* ADDING ENTITIES */
+
+/*
+To add more entities, expand the fields object in utilities.js with the relevant information (see existing for examples)
+
+For a fully independent object, the methods used in fetch_initial_data.js can be copied and edited (same way as "games")
+
+For an object referenced by pre-existing data, it's query in the fields object must be defined to make sure it's included
+
+It can then be processed in the same way as "platforms"
+
+The entities are only hard-coded into this setup phase; after a successful setup, the rest of the code will
+automatically be compatible with all entities.
+*/
+
 // process the initial data
 async function initData(){
-    const game_limit = 2; // number of games to request from external API (max 50)
+    const game_limit = 50; // number of games to request from external API (max 50)
 
     // get unprocessed initial games data from separate script
     let data_json_games = await fetchInitialData(game_limit);
@@ -189,6 +204,8 @@ app.get("/getFieldInfo", function(req ,resp){
         // if undefined/unsupported entity, assume client needs field names
         let entityNames = {};
         for (let field in fields) {
+            // cannot test else case here without modifying prototype, so ignore branch
+            /* istanbul ignore else */
             if (fields.hasOwnProperty(field)) {
                 entityNames[field] = fields[field].name;
             }

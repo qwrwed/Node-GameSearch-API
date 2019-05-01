@@ -226,6 +226,14 @@ describe("Test getFieldInfo request", () => {
 });
 
 describe("Coverage tests", () => {
+
+    test("GET /getFieldInfo with entity and components (including id) successfully returns JSON", () => {
+        return request(app)
+            .get("/getFieldInfo?entity=games&components=name,id")
+            .expect(200)
+            .expect("Content-type", /json/);
+    });
+
     test("authenticated POST /add with empty data returns 400", () => {
         return request(app)
             .post("/add")
@@ -255,7 +263,7 @@ describe("Coverage tests", () => {
             {"id":"genres","label":"Genres","value":""},
             {"id":"age_rating","label":"PEGI Age Rating","value":""},
             {"id":"cover","label":"Image URL","value":""},
-            {"id":"summary","label":"Summary","value":""},
+            {"id":"summary","label":"Summary","value":"Sample Description <br> for testing HTML sanitization"},
             {"id":"storyline","label":"Plot","value":""}
         ]);
         return request(app)
