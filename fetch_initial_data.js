@@ -2,21 +2,21 @@ const fetch = require("node-fetch");
 const { fields, getSingleComponent } = require("./utilities");
 
 const primaryDataLocation = "https://api-v3.igdb.com/games";
-const api_key = "***REMOVED***";
+const API_KEY = process.env.API_KEY; // not distributable
 const secondaryDataLocation = "./igdb_backup.json";
 
 // export the function itself
 module.exports = async function (game_limit, useBackup){
 
     // get the query from the fields information object and use it to query external API for data (https://api-docs.igdb.com/)
-    const fieldsString = getSingleComponent(fields.games.data, "query").join(", ");
+    const fieldsString = getSingleComponent(fields.games.data, "query").join(", ");API_KEY;
     let request_body = `fields ${fieldsString}; where platforms = (48, 49); sort popularity desc; limit ${game_limit};`;
     let data_json_games;
 
     try {
         let response = await fetch(primaryDataLocation, {
             headers: {
-                "user-key": api_key,
+                "user-key": API_KEY,
                 Accept: "application/json"
             },
             method:"POST",
