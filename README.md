@@ -1,4 +1,5 @@
-#L1 Programming Node API
+# L1 Programming Node API
+
 This project contains a JavaScript REST API (server) and a single-page
 application (SPA) that can be used to access it (client).
 
