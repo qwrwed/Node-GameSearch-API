@@ -80,7 +80,7 @@ For reference, here is a sample field object associated with the `games` entity 
 
 `{id: "cover", query: "cover.*", label: "Image URL", html: "<img src=$><br>", required: false, isEntity: false}`
 
-###POST /add
+### POST /add
 Requires authorisation. Currently can only be performed from http://127.0.0.1:8090 and  https://prog-api.glitch.me/,
 as allowed URLs must be defined individually by the holder of the auth0 account that supplies the authentication service used.
 
